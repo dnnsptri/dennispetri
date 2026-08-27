@@ -1,19 +1,18 @@
 import type { Metadata, Viewport } from 'next'
-import Script from 'next/script'
 import './globals.css'
-
-const siteUrl = 'https://dennispetri.nl'
-const siteTitle = 'Dennis Petri, product design & creative direction'
-const siteDescription =
-  'Creative direction and product design. I decide what good looks like, and make sure it ships. Based in The Hague.'
+import Analytics from './components/Analytics'
+import { siteDescription, siteTitle, siteUrl } from './site'
 
 export const metadata: Metadata = {
-  // Static export has no request context. metadataBase covers most resolution,
-  // but dev overrides it with the local origin, so OG image URLs are written
-  // absolute to guarantee scrapers always get the production host.
+  // metadataBase covers most URL resolution, but dev overrides it with the
+  // local origin, so OG image URLs are written absolute below to guarantee
+  // scrapers always get the production host.
   metadataBase: new URL(siteUrl),
   title: siteTitle,
   description: siteDescription,
+  alternates: {
+    canonical: siteUrl,
+  },
   openGraph: {
     type: 'website',
     url: siteUrl,
@@ -47,7 +46,6 @@ export const metadata: Metadata = {
       { url: '/apple-icon-180x180.png', sizes: '180x180', type: 'image/png' },
     ],
   },
-  manifest: '/manifest.json',
   other: {
     'msapplication-TileColor': '#FFFF33',
     'msapplication-TileImage': '/ms-icon-144x144.png',
@@ -68,22 +66,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <head>
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-ZVWK9LNYE0"
-          strategy="afterInteractive"
-        />
-        <Script id="google-analytics" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-ZVWK9LNYE0');
-          `}
-        </Script>
-      </head>
       <body>
         {children}
+        {/* Cookieless GA, production only. Keep the config in the component,
+            a bare gtag <Script> here would set identifiers again. */}
+        <Analytics />
       </body>
     </html>
   )

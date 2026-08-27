@@ -93,7 +93,7 @@ export default function Home() {
               {/* H1 */}
               <h1 className="text-heading-1">
               SPEED IS SOLVED.<br />
-              TASTE ISN&rsquo;T
+              TASTE ISN&rsquo;T.
               </h1>
 
               {/* Body Text */}

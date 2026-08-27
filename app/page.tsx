@@ -98,8 +98,7 @@ export default function Home() {
 
               {/* Body Text */}
               <p className="text-body">
-                Creative direction and product design. I decide what good looks like<br />
-                and make sure it ships.
+                Creative direction and product design. I decide what good looks like and make sure it ships.
               </p>
 
               {/* Primary CTA */}

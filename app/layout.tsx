@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import './globals.css'
 import Analytics from './components/Analytics'
-import { siteDescription, siteTitle, siteUrl } from './site'
+import { iconVersion, siteDescription, siteTitle, siteUrl } from './site'
 
 export const metadata: Metadata = {
   // metadataBase covers most URL resolution, but dev overrides it with the
@@ -35,20 +35,23 @@ export const metadata: Metadata = {
     description: siteDescription,
     images: [`${siteUrl}/DP_OpenGraph.png`],
   },
+  // ?v=2 busts the browser favicon cache. Chrome and Safari hold onto icons
+  // far past a hard refresh, so the old mark survives a deploy without it.
+  // Bump this whenever the icon artwork changes.
   icons: {
     icon: [
-      { url: '/favicon.ico', sizes: 'any' },
-      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
-      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: `/favicon.ico?v=${iconVersion}`, sizes: 'any' },
+      { url: `/favicon-32x32.png?v=${iconVersion}`, sizes: '32x32', type: 'image/png' },
+      { url: `/favicon-16x16.png?v=${iconVersion}`, sizes: '16x16', type: 'image/png' },
     ],
-    shortcut: '/favicon.ico',
+    shortcut: `/favicon.ico?v=${iconVersion}`,
     apple: [
-      { url: '/apple-icon-180x180.png', sizes: '180x180', type: 'image/png' },
+      { url: `/apple-icon-180x180.png?v=${iconVersion}`, sizes: '180x180', type: 'image/png' },
     ],
   },
   other: {
     'msapplication-TileColor': '#FFFF33',
-    'msapplication-TileImage': '/ms-icon-144x144.png',
+    'msapplication-TileImage': `/ms-icon-144x144.png?v=${iconVersion}`,
     'theme-color': '#FFFF33',
   },
 }

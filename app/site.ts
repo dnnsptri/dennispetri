@@ -16,3 +16,6 @@ export const siteDescription =
 
 /** GA4 measurement ID. Loaded cookieless, production only. */
 export const gaMeasurementId = 'G-ZVWK9LNYE0'
+
+/** Cache-buster for favicon URLs. Bump when the icon artwork changes. */
+export const iconVersion = 2

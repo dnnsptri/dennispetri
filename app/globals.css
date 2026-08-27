@@ -301,7 +301,7 @@ body {
   color: #FAFAFA;
   opacity: 1;
   line-height: 1.4; /* leading-relaxed */
-  margin-bottom: 0.5rem; /* Flexible margin */
+  margin-bottom: 1rem; /* Doubled on mobile to give the CTA room to breathe */
 }
 
 @media (min-width: 768px) {

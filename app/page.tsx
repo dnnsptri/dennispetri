@@ -6,6 +6,7 @@ import GradientBackground from './components/GradientBackground'
 const logos = [
   'atni.svg',
   'dutchqualitygroup.svg',
+  'esomar.svg',
   'grotekerkbreda.svg',
   'hellopublic.svg',
   'ing.svg',
@@ -153,7 +154,7 @@ export default function Home() {
         {/* Footer */}
         <footer className="animate-footer flex-shrink-0 px-6 md:px-8 pb-4 md:pb-6 pt-5 md:pt-0 content-section content-footer">
           {/* Mobile: Email • Phone on one line */}
-          <div className="flex flex-col gap-2 md:hidden">
+          <div className="flex flex-col gap-3 md:hidden">
             <div className="flex items-center gap-1.5 whitespace-nowrap">
               <a
                 href="mailto:hi@dennispetri.nl"
@@ -170,7 +171,8 @@ export default function Home() {
               </a>
             </div>
             <p className="text-footer">
-              © {currentYear} Dennis Petri • Product design & creative direction
+              © {currentYear} Dennis Petri<br />
+              Product design & creative direction
             </p>
           </div>
           {/* Desktop: Horizontal layout */}

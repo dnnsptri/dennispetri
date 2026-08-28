@@ -182,25 +182,36 @@ body {
   }
 }
 
-/* Navigation links */
-.text-nav-link {
-  font-size: 0.875rem; /* text-sm */
+/* Chrome text — LinkedIn, Email, Phone, caption, footer share one size */
+.text-nav-link,
+.text-footer,
+.text-caption {
+  font-size: 0.875rem;
+  font-weight: 400;
+  line-height: 1.4;
   color: #FAFAFA;
   opacity: 1;
-  text-underline-offset: 0.125rem; /* underline-offset-2 */
-  transition: text-decoration 0.2s ease;
-}
-
-/* Hover: underline only, keep color */
-.text-nav-link:hover {
-  text-decoration: underline;
-  color: #FAFAFA; /* Keep original color */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 @media (min-width: 768px) {
-  .text-nav-link {
-    font-size: 1rem; /* md:text-base */
+  .text-nav-link,
+  .text-footer,
+  .text-caption {
+    font-size: 1rem;
   }
+}
+
+/* Navigation links */
+.text-nav-link {
+  text-underline-offset: 0.125rem;
+  transition: text-decoration 0.2s ease;
+}
+
+.text-nav-link:hover {
+  text-decoration: underline;
+  color: #FAFAFA;
 }
 
 /* Navigation separator */
@@ -270,11 +281,14 @@ body {
 
 /* Body text */
 .text-body {
-  font-size: 0.875rem; /* text-sm on mobile */
+  font-size: 0.875rem;
+  font-weight: 400;
   color: #FAFAFA;
   opacity: 1;
-  line-height: 1.4; /* leading-relaxed */
+  line-height: 1.4;
   margin-bottom: 1.5rem;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 @media (min-width: 768px) {
@@ -286,25 +300,15 @@ body {
 
 /* Caption text */
 .text-caption {
-  font-size: 0.75rem; /* text-xs on mobile */
-  color: #FAFAFA;
-  opacity: 1;
   margin-bottom: 0.5rem;
 }
 
 @media (min-width: 768px) {
   .text-caption {
-    font-size: 1rem; /* md:text-base */
-    margin-bottom: 0.75rem; /* Flexible margin */
+    margin-bottom: 0.75rem;
   }
 }
 
-/* Footer text */
-.text-footer {
-  font-size: 0.875rem; /* text-sm */
-  color: #FAFAFA;
-  opacity: 1;
-}
 
 /* ============================================
    BUTTON STYLES - Easy to modify

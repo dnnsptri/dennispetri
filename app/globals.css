@@ -13,8 +13,9 @@ html {
   padding: 0;
   width: 100%;
   height: 100%;
-  /* Match ShaderGradient colors - yellow dominant at top */
+  background-color: #F36919;
   background: #F36919;
+  color-scheme: light;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -26,28 +27,21 @@ body {
   width: 100%;
   min-height: 100vh;
   min-height: 100dvh; /* important for iOS */
-  /* Match ShaderGradient - solid yellow background */
+  background-color: #F36919;
   background: #F36919;
   box-sizing: border-box;
 }
 
 /* body overflow control moved to .page class for homepage only */
 
-/* Homepage container - locks to viewport */
+/* Homepage container - locks to one viewport, no scroll */
 .page {
-  position: relative;
-  min-height: 100vh;
-  min-height: 100dvh;
-}
-
-@media (min-width: 769px) {
-  .page {
-    position: fixed;
-    inset: 0;
-    height: 100vh;
-    height: 100dvh;
-    overflow: hidden;
-  }
+  position: fixed;
+  inset: 0;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  background-color: #F36919;
 }
 
 /* Gradient Background - covers entire viewport including safe areas */
@@ -61,6 +55,7 @@ body {
   bottom: -60px;
   width: calc(100% + 120px);
   height: calc(100% + 120px);
+  background-color: #F36919;
 }
 
 .gradient-canvas {
@@ -86,37 +81,15 @@ body {
 
 .content-wrapper {
   padding-top: env(safe-area-inset-top);
-  min-height: 100vh;
-  min-height: 100dvh;
+  height: 100%;
+  max-height: 100%;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
 }
 
-@media (min-width: 769px) {
-  .content-wrapper {
-    height: 100vh;
-    height: 100dvh;
-    max-height: 100vh;
-    max-height: 100dvh;
-    overflow: hidden;
-  }
-}
-
 .content-footer {
-  padding-bottom: calc(0.5rem + env(safe-area-inset-bottom));
-}
-
-/* Mobile: First viewport fills screen, footer below the fold */
-@media (max-width: 768px) {
-  .content-wrapper {
-    min-height: auto;
-  }
-  
-  .mobile-main-area {
-    min-height: calc(100vh - 60px); /* Viewport minus nav height */
-    min-height: calc(100dvh - 60px);
-    justify-content: space-between;
-  }
+  padding-bottom: calc(1rem + env(safe-area-inset-bottom));
 }
 
 @media (min-width: 768px) {
@@ -243,7 +216,7 @@ body {
   color: #FAFAFA !important;
   opacity: 1;
   line-height: 1.1 !important; /* leading-tight */
-  margin-bottom: 0.5rem !important; /* Flexible margin */
+  margin-bottom: 1rem !important;
 }
 
 @media (min-width: 768px) {
@@ -301,7 +274,7 @@ body {
   color: #FAFAFA;
   opacity: 1;
   line-height: 1.4; /* leading-relaxed */
-  margin-bottom: 1rem; /* Doubled on mobile to give the CTA room to breathe */
+  margin-bottom: 1.5rem;
 }
 
 @media (min-width: 768px) {
@@ -316,7 +289,7 @@ body {
   font-size: 0.75rem; /* text-xs on mobile */
   color: #FAFAFA;
   opacity: 1;
-  margin-bottom: 0.25rem; /* Small margin */
+  margin-bottom: 0.5rem;
 }
 
 @media (min-width: 768px) {

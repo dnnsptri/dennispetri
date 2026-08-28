@@ -28,7 +28,7 @@ export default function Home() {
       
       <div className="relative z-10 flex flex-col content-wrapper">
         {/* Top Navigation */}
-        <nav className="animate-header flex-shrink-0 w-full px-6 md:px-8 pt-4 md:pt-8 flex justify-between items-center content-section">
+        <nav className="animate-header flex-shrink-0 w-full px-6 md:px-8 pt-6 md:pt-8 flex justify-between items-center content-section">
           {/* Logo/Name */}
           <div className="flex items-center gap-2">
             <img
@@ -114,7 +114,7 @@ export default function Home() {
           </main>
 
           {/* Caption & Logo Strip - Bottom of flex container */}
-          <section className="animate-section flex-shrink-0 py-2 md:py-2 mb-0 md:mb-10">
+          <section className="animate-section flex-shrink-0 py-5 md:py-2 mb-0 md:mb-10">
             <div className="w-full max-w-[1024px]">
               {/* Caption */}
               <p className="text-caption">
@@ -150,25 +150,27 @@ export default function Home() {
           </section>
         </div>
 
-        {/* Footer - on mobile, visible after scroll */}
-        <footer className="animate-footer flex-shrink-0 px-6 md:px-8 pb-6 md:pb-6 pt-8 md:pt-0 content-section content-footer">
-          {/* Mobile: Left-aligned, vertically stacked */}
+        {/* Footer */}
+        <footer className="animate-footer flex-shrink-0 px-6 md:px-8 pb-4 md:pb-6 pt-5 md:pt-0 content-section content-footer">
+          {/* Mobile: Email • Phone on one line */}
           <div className="flex flex-col gap-2 md:hidden">
-            <a
-              href="mailto:hi@dennispetri.nl"
-              className="text-nav-link"
-            >
-              Email
-            </a>
-            <a 
-              href="tel:+31647258820" 
-              className="text-nav-link"
-            >
-              Phone
-            </a>
+            <div className="flex items-center gap-1.5 whitespace-nowrap">
+              <a
+                href="mailto:hi@dennispetri.nl"
+                className="text-nav-link"
+              >
+                Email
+              </a>
+              <span className="text-footer" aria-hidden="true">•</span>
+              <a
+                href="tel:+31647258820"
+                className="text-nav-link"
+              >
+                Phone
+              </a>
+            </div>
             <p className="text-footer">
-              © {currentYear} Dennis Petri<br />
-              Product design & creative direction
+              © {currentYear} Dennis Petri • Product design & creative direction
             </p>
           </div>
           {/* Desktop: Horizontal layout */}

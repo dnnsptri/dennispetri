@@ -50,9 +50,12 @@ export const metadata: Metadata = {
     ],
   },
   other: {
-    'msapplication-TileColor': '#FFFF33',
+    'msapplication-TileColor': '#F36919',
     'msapplication-TileImage': `/ms-icon-144x144.png?v=${iconVersion}`,
-    'theme-color': '#FFFF33',
+  },
+  appleWebApp: {
+    title: 'Dennis Petri',
+    statusBarStyle: 'black-translucent',
   },
 }
 
@@ -60,6 +63,11 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   viewportFit: 'cover',
+  colorScheme: 'light',
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#F36919' },
+    { media: '(prefers-color-scheme: dark)', color: '#F36919' },
+  ],
 }
 
 export default function RootLayout({

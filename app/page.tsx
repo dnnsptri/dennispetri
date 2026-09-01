@@ -32,16 +32,6 @@ export default function Home() {
         <nav className="animate-header flex-shrink-0 w-full px-6 md:px-8 pt-6 md:pt-8 flex justify-between items-center content-section">
           {/* Logo/Name */}
           <div className="flex items-center gap-2">
-            <img
-              src="/profile_dennis.jpg"
-              alt="Dennis Petri profile"
-              width={48}
-              height={48}
-              style={{
-                borderRadius: '50%',
-                objectFit: 'cover'
-              }}
-            />
             <div className="text-logo">
               Dennis Petri
             </div>
@@ -93,8 +83,8 @@ export default function Home() {
             <div className="w-full max-w-[1280px]">
               {/* H1 */}
               <h1 className="text-heading-1">
-              SPEED IS SOLVED.<br />
-              TASTE ISN&rsquo;T.
+              Speed is solved.<br />
+              Taste isn&rsquo;t.
               </h1>
 
               {/* Body Text */}

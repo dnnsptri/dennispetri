@@ -4,6 +4,24 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
 
+/* ============================================
+   PALETTE - single source for the theme
+   Change these four and the whole page follows.
+   ============================================ */
+:root {
+  /* Flat colour painted behind and around the WebGL canvas, and used for the
+     browser chrome tint. Keep it close to the shader's dominant colour or you
+     get a flash of the wrong hue before the canvas boots. */
+  --bg-flat: #F36919;
+  /* Text and borders on the orange field. */
+  --ink: #FAFAFA;
+  /* Accent: the CTA fill and the blinking cursor. The one thing allowed to
+     pop against the orange, so nothing else should use it. */
+  --accent: #FFFF33;
+  /* Sits on the accent, and becomes the CTA fill on hover (with --ink text). */
+  --accent-ink: #2A2C2B;
+}
+
 * {
   font-family: 'Manrope', sans-serif;
 }
@@ -13,8 +31,8 @@ html {
   padding: 0;
   width: 100%;
   height: 100%;
-  background-color: #F36919;
-  background: #F36919;
+  background-color: var(--bg-flat);
+  background: var(--bg-flat);
   color-scheme: light;
   -webkit-tap-highlight-color: transparent;
 }
@@ -27,8 +45,8 @@ body {
   width: 100%;
   min-height: 100vh;
   min-height: 100dvh; /* important for iOS */
-  background-color: #F36919;
-  background: #F36919;
+  background-color: var(--bg-flat);
+  background: var(--bg-flat);
   box-sizing: border-box;
 }
 
@@ -41,7 +59,7 @@ body {
   height: 100vh;
   height: 100dvh;
   overflow: hidden;
-  background-color: #F36919;
+  background-color: var(--bg-flat);
 }
 
 /* Gradient Background - covers entire viewport including safe areas */
@@ -55,7 +73,7 @@ body {
   bottom: -60px;
   width: calc(100% + 120px);
   height: calc(100% + 120px);
-  background-color: #F36919;
+  background-color: var(--bg-flat);
 }
 
 .gradient-canvas {
@@ -172,7 +190,7 @@ body {
 .text-logo {
   font-size: 1.125rem; /* text-lg */
   font-weight: 500; /* font-semibold */
-  color: #FAFAFA;
+  color: var(--ink);
   opacity: 1;
 }
 
@@ -189,7 +207,7 @@ body {
   font-size: 0.875rem;
   font-weight: 400;
   line-height: 1.4;
-  color: #FAFAFA;
+  color: var(--ink);
   opacity: 1;
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
@@ -211,12 +229,12 @@ body {
 
 .text-nav-link:hover {
   text-decoration: underline;
-  color: #FAFAFA;
+  color: var(--ink);
 }
 
 /* Navigation separator */
 .text-nav-separator {
-  color: #FAFAFA;
+  color: var(--ink);
   opacity: 0.3;
 }
 
@@ -224,7 +242,7 @@ body {
 .text-heading-1 {
   font-size: 2.5rem !important; /* mobile - smaller to fit viewport */
   font-weight: 400 !important; /* font-medium */
-  color: #FAFAFA !important;
+  color: var(--ink) !important;
   opacity: 1;
   line-height: 1.1 !important; /* leading-tight */
   margin-bottom: 1rem !important;
@@ -259,7 +277,7 @@ body {
 .text-heading-2 {
   font-size: 2.25rem; /* mobile - same as h1 */
   font-weight: 500; /* font-medium */
-  color: #FAFAFA;
+  color: var(--ink);
   opacity: 1;
   line-height: 1.2; /* leading-tight - same as h1 */
   margin-bottom: 1.5rem; /* mb-6 - same as h1 */
@@ -283,7 +301,7 @@ body {
 .text-body {
   font-size: 0.875rem;
   font-weight: 400;
-  color: #FAFAFA;
+  color: var(--ink);
   opacity: 1;
   line-height: 1.4;
   margin-bottom: 1.5rem;
@@ -318,13 +336,13 @@ body {
 .btn-primary {
   display: inline-block;
   padding: 0.75rem 1rem; /* Smaller padding on mobile */
-  border: 2px solid #E4E4E7;
-  background-color: transparent;
-  color: #FAFAFA;
+  border: 2px solid var(--accent);
+  background-color: var(--accent);
+  color: var(--accent-ink);
   opacity: 1;
   font-weight: 600; /* font-semibold */
   font-size: 0.875rem; /* Smaller on mobile */
-  border-radius: 0.5rem; /* rounded-lg */
+  border-radius: 2px;
   transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
   text-decoration: none;
   outline: none;
@@ -332,9 +350,9 @@ body {
 }
 
 .btn-primary:hover {
-  background-color: #FFFF33 !important;
-  color: #2A2C2B !important;
-  border-color: transparent !important;
+  background-color: var(--accent-ink) !important;
+  color: var(--ink) !important;
+  border-color: var(--accent-ink) !important;
   outline: none !important;
 }
 

@@ -356,6 +356,18 @@ body {
   outline: none !important;
 }
 
+/* Quick nudge fired when the headline arrow swings into line with this
+   button. Scale only, so it never reflows the text around it. */
+@keyframes btn-bump {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+.btn-bump {
+  animation: btn-bump 240ms ease-out;
+}
+
 .btn-primary:focus {
   outline: none;
 }

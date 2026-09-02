@@ -9,6 +9,7 @@
 // Sized in em and filled with currentColor, so it inherits the size and colour
 // of whatever type it sits next to.
 
+import { forwardRef } from 'react'
 import type { CSSProperties } from 'react'
 
 type IconProps = {
@@ -17,17 +18,20 @@ type IconProps = {
 }
 
 /** Closes the headline, gesturing down-left toward the CTA. */
-export function ArrowSouthWest({ className, style }: IconProps) {
-  return (
-    <svg
-      viewBox="0 -960 960 960"
-      fill="currentColor"
-      aria-hidden="true"
-      focusable="false"
-      className={className}
-      style={style}
-    >
-      <path d="M210-210v-380h60v277.85l474-474L786.15-744l-474 474H590v60H210Z" />
-    </svg>
-  )
-}
+export const ArrowSouthWest = forwardRef<SVGSVGElement, IconProps>(
+  function ArrowSouthWest({ className, style }, ref) {
+    return (
+      <svg
+        ref={ref}
+        viewBox="0 -960 960 960"
+        fill="currentColor"
+        aria-hidden="true"
+        focusable="false"
+        className={className}
+        style={style}
+      >
+        <path d="M210-210v-380h60v277.85l474-474L786.15-744l-474 474H590v60H210Z" />
+      </svg>
+    )
+  }
+)

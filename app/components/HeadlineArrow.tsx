@@ -24,7 +24,8 @@ const INTRO_MS = 800
 
 // When the arrow swings into line with the CTA, the CTA answers with a quick
 // bump. "In line with" means the pointer lies along the arrow-to-button ray,
-// so it still counts when the pointer is past the button.
+// so it still counts when the pointer is past the button. Mouse and stylus
+// only: on touch the arrow just plays its intro and stays at rest.
 const BUTTON_SELECTOR = '.btn-primary'
 const BUMP_CLASS = 'btn-bump'
 // Half-angle of the cone that counts as aligned. This has to be wider than the
@@ -114,6 +115,14 @@ export default function HeadlineArrow() {
     }
 
     const onMove = (e: PointerEvent) => {
+      // Finger never drives the arrow: on touch the pointer is the content you
+      // are trying to read, so tracking it means the arrow chases the hand
+      // covering the headline. A stylus is a deliberate pointing device, so it
+      // counts. Filtering per event rather than per device is what keeps an
+      // iPad working with a trackpad or Pencil, since the same page reports
+      // 'mouse' and 'pen' there while a finger still reports 'touch'.
+      if (e.pointerType === 'touch') return
+
       // Rotation is about the element's centre, so the axis-aligned box that
       // getBoundingClientRect returns while rotated still has the right centre.
       const r = el.getBoundingClientRect()
@@ -150,7 +159,7 @@ export default function HeadlineArrow() {
         // The turn has just landed on the button; announce it, then start
         // following the pointer.
         updateAim(currentDeg)
-        // pointermove covers mouse and touch-drag alike.
+        // pointermove also fires for touch; onMove filters that out.
         window.addEventListener('pointermove', onMove, { passive: true })
       }, INTRO_MS)
     }, INTRO_DELAY_MS)

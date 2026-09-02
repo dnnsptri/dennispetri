@@ -1,6 +1,7 @@
 'use client'
 
 import GradientBackground from './components/GradientBackground'
+import { ArrowSouthWest } from './components/Icons'
 
 // Add your logo filenames here (must match files in /public/logos/)
 const logos = [
@@ -84,7 +85,14 @@ export default function Home() {
               {/* H1 */}
               <h1 className="text-heading-1">
               Speed is solved.<br />
-              Taste isn&rsquo;t.
+              Taste isn&rsquo;t.<ArrowSouthWest
+                style={{
+                  display: 'inline-block',
+                  width: '1.15em',
+                  height: '1.15em',
+                  transform: 'translateY(-0.054em)',
+                }}
+              />
               </h1>
 
               {/* Body Text */}

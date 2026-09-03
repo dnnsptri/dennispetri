@@ -10,9 +10,11 @@ const REST_ANGLE_DEG = 135
 
 // Sizing and baseline seating live here rather than in page.tsx, because the
 // rotation has to compose with the baseline nudge in one transform. See
-// Icons.tsx for why 1.15em, and the commit for how -0.054em was derived.
+// Icons.tsx for why 1.15em. The nudge is measured, not guessed: the glyph
+// stops 210/960 above its own box bottom, and this value seats that painted
+// edge on Sailec's baseline. It changes with the typeface.
 const WIDTH = '1.15em'
-const BASELINE_NUDGE = 'translateY(-0.054em)'
+const BASELINE_NUDGE = 'translateY(-0.0684em)'
 
 // The arrow lands pointing due right, then turns clockwise onto the button.
 // -135 relative to a 135deg rest heading is an absolute 0deg, i.e. east.

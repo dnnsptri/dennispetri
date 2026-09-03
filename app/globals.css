@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap');
 
 /* ============================================
    PALETTE - single source for the theme
@@ -22,8 +21,10 @@
   --accent-ink: #2A2C2B;
 }
 
+/* Sailec is wired up in layout.tsx via next/font/local, which exposes it as
+   --font-sailec. */
 * {
-  font-family: 'Manrope', sans-serif;
+  font-family: var(--font-sailec), sans-serif;
 }
 
 html {
@@ -156,18 +157,7 @@ body {
   }
 }
 
-@keyframes blink-cursor {
-  0%, 49% {
-    opacity: 1;
-  }
-  50%, 100% {
-    opacity: 0;
-  }
-}
 
-.cursor-blink {
-  animation: blink-cursor 1.2s steps(2, start) infinite;
-}
 
 @media (max-width: 768px) {
   .logo-set {
@@ -245,6 +235,10 @@ body {
   color: var(--ink) !important;
   opacity: 1;
   line-height: 1.1 !important; /* leading-tight */
+  /* Matches the LinkedIn setting. Measured from that artwork: its leading is
+     1.107, so effectively the same as here; the tighter look comes entirely
+     from tracking, not from line-height. */
+  letter-spacing: -0.022em;
   margin-bottom: 1rem !important;
 }
 
@@ -312,7 +306,11 @@ body {
 @media (min-width: 768px) {
   .text-body {
     font-size: 1.125rem; /* md:text-lg */
-    margin-bottom: 1.5rem; /* Flexible margin */
+    /* Optically matched to the gap above this paragraph, not numerically equal
+       to it. The h1 above is 80px with line-height 1.1, so its box runs well
+       past its glyphs; an identical 1.5rem margin here left only 27px of
+       visible space against the headline's 52px. Measured from ink extents. */
+    margin-bottom: 3.025rem;
   }
 }
 
@@ -340,7 +338,8 @@ body {
   background-color: var(--accent);
   color: var(--accent-ink);
   opacity: 1;
-  font-weight: 600; /* font-semibold */
+  font-weight: 500; /* Sailec Medium. The family has no 600, so that value
+                       resolved up to Bold (700) and read too heavy. */
   font-size: 0.875rem; /* Smaller on mobile */
   border-radius: 2px;
   transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;

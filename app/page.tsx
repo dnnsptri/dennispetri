@@ -13,7 +13,6 @@ const logos = [
   'ing.svg',
   'milvum.svg',
   'neuralteq.svg',
-  'pixelfit.svg',
   'sportiefbesteedgroep.svg',
   'tofhelmets.svg',
   'uwv.svg',
@@ -36,17 +35,6 @@ export default function Home() {
             <div className="text-logo">
               Dennis Petri
             </div>
-            <div
-              className="cursor-blink align-bottom"
-              style={{
-                width: '8px',
-                height: '8px',
-                backgroundColor: '#FFFF33',
-                flexShrink: 0,
-                display: 'inline-block',
-                verticalAlign: 'bottom'
-              }}
-            />
           </div>
           
           {/* Links */}

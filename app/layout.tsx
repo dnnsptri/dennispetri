@@ -1,7 +1,26 @@
 import type { Metadata, Viewport } from 'next'
+import localFont from 'next/font/local'
 import './globals.css'
 import Analytics from './components/Analytics'
 import { iconVersion, siteDescription, siteTitle, siteUrl } from './site'
+
+// Sailec is licensed, so it lives in app/ rather than public/: next/font emits
+// it to /_next/static/media/ under a content hash instead of serving it from a
+// guessable path. Self-hosting also drops the render-blocking round trip to
+// Google that the old @import cost.
+// Sailec ships no SemiBold. Only the four weights below exist, so a
+// font-weight:600 request resolves up to Bold (700) rather than being
+// synthesised.
+const sailec = localFont({
+  src: [
+    { path: './fonts/SailecLight/font.woff2', weight: '300', style: 'normal' },
+    { path: './fonts/SailecRegular/font.woff2', weight: '400', style: 'normal' },
+    { path: './fonts/SailecMedium/font.woff2', weight: '500', style: 'normal' },
+    { path: './fonts/SailecBold/font.woff2', weight: '700', style: 'normal' },
+  ],
+  variable: '--font-sailec',
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
   // metadataBase covers most URL resolution, but dev overrides it with the
@@ -76,7 +95,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={sailec.variable}>
       <body>
         {children}
         {/* Cookieless GA, production only. Keep the config in the component,

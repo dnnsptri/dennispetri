@@ -1,8 +1,10 @@
-// Material Symbols (Apache 2.0), outlined, weight 300. Weight is tied to the
-// rendered box, not to the font: the arrow is drawn at 1.15em so its stroke of
-// 60/960 lands at ~6% of 92px, within a hair of Manrope 400's stem at headline
-// size. Heavier weights read as an icon bolted on rather than a glyph in the
-// line. Rescale the arrow and the weight has to be re-derived.
+// Material Symbols (Apache 2.0), outlined, weight 400. Weight is tied to both
+// the rendered box and the typeface it sits beside: the arrow is drawn at
+// 1.15em, so a stroke of 80/960 lands at 7.7px against Sailec 400's measured
+// 8px stem at headline size. It was weight 300 for Manrope, whose stem is only
+// 5.6px. Change the headline font, its weight, or the arrow's size, and this
+// has to be re-derived by measuring, or the arrow stops reading as a glyph in
+// the line and starts looking bolted on.
 // These are Google's official 24px exports, so the odd "0 -960 960 960"
 // viewBox is theirs: the glyph is drawn above the origin. Do not "fix" it.
 //
@@ -30,7 +32,7 @@ export const ArrowSouthWest = forwardRef<SVGSVGElement, IconProps>(
         className={className}
         style={style}
       >
-        <path d="M210-210v-380h60v277.85l474-474L786.15-744l-474 474H590v60H210Z" />
+        <path d="M200-200v-400h80v264l464-464 56 56-464 464h264v80H200Z" />
       </svg>
     )
   }

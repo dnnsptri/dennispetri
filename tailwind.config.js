@@ -8,7 +8,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Manrope', 'sans-serif'],
+        sans: ['var(--font-sailec)', 'sans-serif'],
       },
       colors: {
         white: '#FFFFFF',

@@ -81,10 +81,10 @@ export default function Home() {
                   space themselves apart. */}
               <div className="text-body">
                 <p className="mb-3">
-                  Creative direction and product design. I decide what good looks like and make sure it ships.
+                  I find the product your people actually need, decide what good looks like, and make sure it ships.
                 </p>
                 <p>
-                  Designer by origin, strategist by necessity, builder by choice. I help organizations find the product their people actually need, then build it. Myself, or with your team.
+                  Designer by origin, strategist by necessity, builder by choice.
                 </p>
               </div>
 

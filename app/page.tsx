@@ -76,10 +76,17 @@ export default function Home() {
               Judgement isn&rsquo;t.<HeadlineArrow />
               </h1>
 
-              {/* Body Text */}
-              <p className="text-body">
-                Creative direction and product design. I decide what good looks like and make sure it ships.
-              </p>
+              {/* Body Text. The wrapper carries .text-body so the tuned
+                  margin before the CTA stays intact; inner paragraphs only
+                  space themselves apart. */}
+              <div className="text-body">
+                <p className="mb-3">
+                  Creative direction and product design. I decide what good looks like and make sure it ships.
+                </p>
+                <p>
+                  Designer by origin, strategist by necessity, builder by choice. I help organizations find the product their people actually need, then build it. Myself, or with your team.
+                </p>
+              </div>
 
               {/* Primary CTA */}
               <a 

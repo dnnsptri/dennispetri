@@ -14,6 +14,9 @@ const logos = [
   { file: 'hellopublic.svg', name: 'Hello Public' },
   { file: 'ing.svg', name: 'ING' },
   { file: 'milvum.svg', name: 'Milvum' },
+  // PNG, not SVG: the official lockup only ships as a raster. White version
+  // made from it, 2x the 80px the SVGs are drawn at.
+  { file: 'ministerie-ez.png', name: 'Ministerie van Economische Zaken' },
   { file: 'neuralteq.svg', name: 'NeuralTeq' },
   { file: 'sportiefbesteedgroep.svg', name: 'Sportief Besteed Groep' },
   { file: 'tofhelmets.svg', name: 'TOF Helmets' },

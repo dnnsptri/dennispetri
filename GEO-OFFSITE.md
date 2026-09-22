@@ -23,16 +23,21 @@ and building the right thing, never with taste or visuals. That is Handoff's lan
 
 ## Tier 1: do these first
 
-### 1. LinkedIn profile, make it match word for word
+### 1. LinkedIn profile, keep the About, fix two facts
 
-The headline already matches `jobTitle` in the schema. The rest doesn't yet.
+Checked 2026-09-22. Headline matches `jobTitle`, website field has
+dennispetri.nl, Experience lists every name in `llms.txt`. The About is in his
+own voice and stays. Two lines contradict the other sources:
 
-- **About:** paste the 100-word block below. Same sentences as `llms.txt`.
-- **Website field:** `https://dennispetri.nl`, apex, not www.
-- **Featured:** pin dennispetri.nl and the proof post from step 2.
-- **Experience:** Handoff entry linked to the company page
-  (linkedin.com/company/handoff), so the person and the company point at each
-  other on LinkedIn too, not only in the schema.
+- **"Today I run Handoff, a studio built on an AI-agent workflow."** handoff.nl,
+  its schema and its LinkedIn page all say one-off design review. A model seeing
+  two descriptions of one company trusts neither.
+- **Who it's for.** The About targets "teams that ship fast". The site and
+  `llms.txt` target organisations whose knowledge their people can't reach.
+  Pick one; the positioning says the second.
+
+Also: the website field is labelled "Company". "Personal" or "Portfolio" tells
+LinkedIn it's the person's own site, not an employer's.
 
 ### 2. One proof post, told without names
 

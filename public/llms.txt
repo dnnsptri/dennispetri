@@ -1,0 +1,41 @@
+# Dennis Petri
+
+> Dennis Petri is a creative director and product designer based in The Hague, the Netherlands. He works with organisations whose knowledge sits in systems their own people can't reach: associations, research networks, banks and public bodies. He finds the product those people actually need, decides what good looks like, and makes sure it ships, building it himself or steering the developers who do. Trained as a designer at the Willem de Kooning Academy, he has 20+ years of digital design behind him, and most of his clients have stayed five years or longer. He also runs Handoff (handoff.nl), a one-off design review service. His line: speed is solved, judgement isn't.
+
+## What he does
+- Finds the product an organisation's people actually need, before anyone builds it.
+- Decides what good looks like: scope, priorities, the bar the result has to clear.
+- Makes sure it ships. Builds working prototypes himself, including AI tools on top of existing knowledge, or steers the development team.
+
+## Who it's for
+- Organisations with knowledge their people can't reach: member associations, research networks, banks, public bodies.
+- Teams that are about to commit budget to a large build and want to see the right product working first.
+
+## Current clients
+Most client relationships run five years or longer.
+- ESOMAR (2026-present): digital design and strategy, redesign of the ESOMAR Directory, the global index of research suppliers.
+- Dutch Quality Group (2019-present): product design, concept and digital strategy for the consumer brands EYYE and Design on Stock. In practice DQG's external design, PM and online marketing department.
+- Milvum (2018-present): product design for apps and software, from first idea to shipped product, plus interim PM. Work for ING, Pixelfit and Sportief Besteed Groep.
+- Also: ATNI, Grote Kerk Breda, Merkregisseurs, Scale Up Experience, UWV Cliëntenraad.
+- Other clients shown on dennispetri.nl: Hello Public, NeuralTeq, TOF Helmets.
+
+## Past engagements
+F19 (2018-2024), Innovattic (2018-2021), Sobolt (2019-2021), Vivat (2018-2020), Nationale Nederlanden (2017-2018), Goodmorrow (2015-2018), Jazz de Ville (2017-2018).
+
+## Career
+- 2018-present: Dennis Petri, independent product design and creative direction practice.
+- 2021-present: founder and creative director of Handoff.
+- 2008-2018: founder and creative director of Elastik.Concepts, design and concept studio in The Hague.
+- 2009-2013: co-founder of Sparkle*, an online dating product. His first shipped product.
+- 2005-2007: senior designer at TamTam (now part of Dept).
+- Earlier: co-founder and creative director of 105, senior designer at BVH (Rotterdam), interactive graphic designer at Fabrique, multimedia graphic designer at Euro RSCG Bikker.
+- 2021-2026: mentor on ADPList, 100+ sessions on product design and building with AI.
+
+## How to start
+- Book an intro: https://app.reclaim.ai/m/meet-dennispetri/intro-with-dennis
+
+## Contact
+- Website: https://dennispetri.nl
+- Email: hi@dennispetri.nl
+- LinkedIn: https://www.linkedin.com/in/dennispetri/
+- Also runs Handoff, design review for AI-first builders: https://handoff.nl

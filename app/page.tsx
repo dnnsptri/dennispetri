@@ -3,21 +3,21 @@
 import GradientBackground from './components/GradientBackground'
 import HeadlineArrow from './components/HeadlineArrow'
 
-// Add your logo filenames here (must match files in /public/logos/)
+// Names double as alt text. With alt="" the client list was invisible to
+// crawlers and screen readers, and it's the strongest authority signal on the
+// page. Files must match /public/logos/.
 const logos = [
-  'atni.svg',
-  'dutchqualitygroup.svg',
-  'esomar.svg',
-  'grotekerkbreda.svg',
-  'hellopublic.svg',
-  'ing.svg',
-  'milvum.svg',
-  'neuralteq.svg',
-  'sportiefbesteedgroep.svg',
-  'tofhelmets.svg',
-  'uwv.svg',
-  // Add more logos as you add them to the folder:
-  // 'filename.svg',
+  { file: 'atni.svg', name: 'ATNI' },
+  { file: 'dutchqualitygroup.svg', name: 'Dutch Quality Group' },
+  { file: 'esomar.svg', name: 'ESOMAR' },
+  { file: 'grotekerkbreda.svg', name: 'Grote Kerk Breda' },
+  { file: 'hellopublic.svg', name: 'Hello Public' },
+  { file: 'ing.svg', name: 'ING' },
+  { file: 'milvum.svg', name: 'Milvum' },
+  { file: 'neuralteq.svg', name: 'NeuralTeq' },
+  { file: 'sportiefbesteedgroep.svg', name: 'Sportief Besteed Groep' },
+  { file: 'tofhelmets.svg', name: 'TOF Helmets' },
+  { file: 'uwv.svg', name: 'UWV' },
 ]
 
 export default function Home() {
@@ -113,20 +113,20 @@ export default function Home() {
                 <div className="logo-strip">
                   {/* Set 1 */}
                   <div className="logo-set">
-                    {logos.map((logo, i) => (
-                      <img 
-                        key={i}
-                        src={`/logos/${logo}`}
-                        alt=""
+                    {logos.map((logo) => (
+                      <img
+                        key={logo.file}
+                        src={`/logos/${logo.file}`}
+                        alt={logo.name}
                       />
                     ))}
                   </div>
                   {/* Set 2 - duplicate for seamless loop */}
                   <div className="logo-set" aria-hidden="true">
-                    {logos.map((logo, i) => (
-                      <img 
-                        key={`set2-${i}`}
-                        src={`/logos/${logo}`}
+                    {logos.map((logo) => (
+                      <img
+                        key={`set2-${logo.file}`}
+                        src={`/logos/${logo.file}`}
                         alt=""
                       />
                     ))}

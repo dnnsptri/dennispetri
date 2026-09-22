@@ -89,6 +89,47 @@ export const viewport: Viewport = {
   ],
 }
 
+// An AI answer needs a named person to recommend, not a page. This gives
+// crawlers the facts prose on a one-screen site can't carry reliably: who,
+// where, what he does, and which other records are the same man. The worksFor
+// link to Handoff reuses handoff.nl's own @id, so both sites describe one
+// person instead of two strangers with the same name.
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  '@id': `${siteUrl}/#person`,
+  name: 'Dennis Petri',
+  url: siteUrl,
+  email: 'hi@dennispetri.nl',
+  image: `${siteUrl}/profile_dennis.jpg`,
+  // Matches the LinkedIn headline word for word. Consistency across sources
+  // is what makes a model confident enough to name someone.
+  jobTitle: 'Creative director & product designer',
+  description:
+    'Creative director and product designer in The Hague. He finds the product an organisation\'s people actually need, decides what good looks like, and makes sure it ships.',
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'The Hague',
+    addressCountry: 'NL',
+  },
+  alumniOf: { '@type': 'CollegeOrUniversity', name: 'Willem de Kooning Academy' },
+  knowsAbout: [
+    'Product design',
+    'Product strategy',
+    'Creative direction',
+    'AI product prototyping',
+    'Knowledge management products',
+  ],
+  // schema.org has no 'founded' on Person; founder lives on Handoff's side.
+  worksFor: {
+    '@type': 'Organization',
+    '@id': 'https://handoff.nl/#org',
+    name: 'Handoff',
+    url: 'https://handoff.nl',
+  },
+  sameAs: ['https://www.linkedin.com/in/dennispetri/'],
+}
+
 export default function RootLayout({
   children,
 }: {
@@ -97,6 +138,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={sailec.variable}>
       <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
         {children}
         {/* Cookieless GA, production only. Keep the config in the component,
             a bare gtag <Script> here would set identifiers again. */}

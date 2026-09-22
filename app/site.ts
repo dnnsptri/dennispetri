@@ -12,7 +12,7 @@ export const siteUrl = 'https://dennispetri.nl'
 export const siteTitle = 'Dennis Petri, product design & creative direction'
 
 export const siteDescription =
-  'Creative direction and product design. I decide what good looks like, and make sure it ships. Based in The Hague.'
+  'I find the product your people actually need, decide what good looks like, and make sure it ships. Creative direction and product design, based in The Hague.'
 
 /** GA4 measurement ID. Loaded cookieless, production only. */
 export const gaMeasurementId = 'G-ZVWK9LNYE0'

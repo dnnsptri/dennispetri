@@ -36,8 +36,8 @@ own voice and stays. Two lines contradict the other sources:
   `llms.txt` target organisations whose knowledge their people can't reach.
   Pick one; the positioning says the second.
 
-Also: the website field is labelled "Company". "Personal" or "Portfolio" tells
-LinkedIn it's the person's own site, not an employer's.
+The website field is labelled "Company". Leave it: dennispetri.nl is the
+business (the DP practice), and the label carries next to no weight for models.
 
 ### 2. One proof post, told without names
 

@@ -1,10 +1,26 @@
 'use client'
 
+import { Component, type ReactNode } from 'react'
 import { ShaderGradientCanvas, ShaderGradient } from '@shadergradient/react'
+
+// WebGL is unavailable on some machines (hardware acceleration off, blocklisted
+// GPU drivers, remote desktop, VMs). three.js then throws on context creation,
+// and without a boundary React unmounts the entire page. Swallow it here so only
+// the decorative gradient disappears; the body's orange background remains.
+class WebGLBoundary extends Component<{ children: ReactNode }, { failed: boolean }> {
+  state = { failed: false }
+  static getDerivedStateFromError() {
+    return { failed: true }
+  }
+  render() {
+    return this.state.failed ? null : this.props.children
+  }
+}
 
 export default function GradientBackground() {
   return (
     <div className="gradient-container">
+      <WebGLBoundary>
       <ShaderGradientCanvas className="gradient-canvas">
       <ShaderGradient
         {...({
@@ -52,6 +68,7 @@ export default function GradientBackground() {
         } as any)}
       />
       </ShaderGradientCanvas>
+      </WebGLBoundary>
     </div>
   )
 }

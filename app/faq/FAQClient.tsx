@@ -68,10 +68,10 @@ export default function FAQClient({ faqs, showFaqlueAttribution, hasFetchError }
       })
 
       if (!response.ok) {
+        const data = await response.json().catch(() => ({}))
         if (response.status === 429) {
-          setFormError('Too many questions submitted today. Please try again tomorrow.')
+          setFormError(data.error || 'Too many questions right now. Please try again later.')
         } else {
-          const data = await response.json().catch(() => ({}))
           setFormError(data.error || 'Unable to submit your question. Please try again later.')
         }
         setFormState('error')

@@ -66,14 +66,16 @@ export default function FAQWidget({ fallbackHTML }: FAQWidgetProps) {
       id="faqlue-widget-container"
       style={{
         // Set custom properties that inherit into shadow DOM
-        ['--fq-color' as any]: '#FAFAFA',
+        ['--fq-color' as any]: '#FFFFFF',
         ['--fq-bg' as any]: 'rgba(255, 255, 255, 0.1)',
         ['--fq-border' as any]: 'rgba(255, 255, 255, 0.2)',
         ['--fq-text' as any]: '#FAFAFA',
-        ['--fq-muted' as any]: 'rgba(250, 250, 250, 0.7)',
+        ['--fq-muted' as any]: '#FFFFFF',
         ['--fq-badge-bg' as any]: 'rgba(255, 255, 255, 0.15)',
         ['--fq-badge-text' as any]: '#FAFAFA',
         ['--fq-highlight' as any]: 'rgba(255, 255, 255, 0.2)',
+        ['--fq-success' as any]: '#FFFFFF',
+        ['--fq-error' as any]: '#FFFFFF',
       }}
       dangerouslySetInnerHTML={{ __html: fallbackHTML }}
     />

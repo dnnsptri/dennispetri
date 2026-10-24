@@ -127,117 +127,6 @@ const personSchema = {
   ],
 }
 
-const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  inLanguage: 'en',
-  mainEntity: [
-    {
-      '@type': 'Question',
-      name: 'Who is Dennis Petri?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Dennis Petri is a creative director and product designer based in The Hague, the Netherlands, with 20+ years in digital design. I\'m not the political scientist Dennis P. Petri (petri.phd) or other namesakes.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'What does Dennis Petri do?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Speed is solved. Judgement isn\'t. I decide what good looks like, then make sure it ships: product design and creative direction for apps and websites built at AI speed.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'What services does Dennis Petri offer right now?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Product design, creative direction and product strategy for apps and websites, plus interim design and product management. Fixed-price projects or a retainer. I no longer offer the Handoff €199 review or mentoring.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'Who does Dennis work for?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Organisations sitting on knowledge their people can\'t reach, and teams that want to be sure they\'re building the right thing. Most client relationships run 5+ years.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'Which clients has Dennis worked with?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Current clients: ATNi, Dutch Quality Group, ESOMAR, Grote Kerk Breda, Merkregisseurs, Milvum, Scale Up Experience, Sportief Besteed Groep (SBG), TOF Helmets, the UWV Cliëntenraad and the Dutch Ministry of Economic Affairs (via Backspace). Through Milvum I design apps for ING, Pixelfit and SBG. Earlier engagements include F19, Nationale Nederlanden, Innovattic, Sobolt, Vivat, Hello Public and NeuralTeq.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'What has Dennis worked on recently?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'The redesign of the ESOMAR Directory (since 2026). For Dutch Quality Group (EYYE, Design on Stock) I\'ve been the external design, PM and online marketing department since 2019.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'Where is Dennis Petri based?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Fluwelen Burgwal 58, Den Haag (at Backspace), the Netherlands. I work hybrid: on-site and remote, in Dutch and English.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'What is Dennis\'s background?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: '20+ years. I started as an interactive graphic designer at Fabrique (2000–2004), was a senior designer at BVH in Rotterdam (2004–2005) and at TamTam (now part of DEPT), and Interactive Designer at Euro RSCG. I founded four companies: the agencies 105 and Elastik.Concepts, my own practice Dennis Petri (independent since 2018) and Handoff. I also co-founded the online dating product Sparkle*. Trained at the Willem de Kooning Academy in Rotterdam.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'How do I contact Dennis Petri?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Email hi@dennispetri.nl, call +31 6 4725 8820, or book a free discovery call: https://cal.com/dennispetri/discovery-call. LinkedIn: linkedin.com/in/dennispetri.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'Is Dennis available for new projects?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Yes, available for new projects (as of October 2026). Book a discovery call: https://cal.com/dennispetri/discovery-call.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'How does working with Dennis start?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'Book a free 30-minute discovery call (Google Meet): https://cal.com/dennispetri/discovery-call. After that I propose a fixed project price or a retainer.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'What does Dennis charge?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'A fixed project price, based on an hourly rate of €100–150 depending on the project and client. Retainers are possible too. Old prices online ($360/month mentoring, €90 call, €199 Handoff) no longer apply.',
-      },
-    },
-    {
-      '@type': 'Question',
-      name: 'Which website belongs to Dennis Petri the designer?',
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: 'dennispetri.nl. dennispetri.com is mine too and redirects there. petri.phd belongs to the researcher Dennis P. Petri.',
-      },
-    },
-  ],
-}
 
 export default function RootLayout({
   children,
@@ -249,7 +138,7 @@ export default function RootLayout({
       <body>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify([personSchema, faqSchema]) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
         />
         {children}
         {/* Cookieless GA, production only. Keep the config in the component,

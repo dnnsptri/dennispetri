@@ -7,20 +7,23 @@ import HeadlineArrow from './components/HeadlineArrow'
 // crawlers and screen readers, and it's the strongest authority signal on the
 // page. Files must match /public/logos/.
 const logos = [
-  { file: 'atni.svg', name: 'ATNI' },
+  { file: 'atni.svg', name: 'ATNi' },
   { file: 'dutchqualitygroup.svg', name: 'Dutch Quality Group' },
   { file: 'esomar.svg', name: 'ESOMAR' },
   { file: 'grotekerkbreda.svg', name: 'Grote Kerk Breda' },
-  { file: 'hellopublic.svg', name: 'Hello Public' },
   { file: 'ing.svg', name: 'ING' },
   { file: 'milvum.svg', name: 'Milvum' },
   // PNG, not SVG: the official lockup only ships as a raster. White version
   // made from it, 2x the 80px the SVGs are drawn at.
   { file: 'ministerie-ez.png', name: 'Ministerie van Economische Zaken' },
-  { file: 'neuralteq.svg', name: 'NeuralTeq' },
   { file: 'sportiefbesteedgroep.svg', name: 'Sportief Besteed Groep' },
   { file: 'tofhelmets.svg', name: 'TOF Helmets' },
   { file: 'uwv.svg', name: 'UWV' },
+]
+
+const pastLogos = [
+  { file: 'hellopublic.svg', name: 'Hello Public' },
+  { file: 'neuralteq.svg', name: 'NeuralTeq' },
 ]
 
 export default function Home() {
@@ -42,6 +45,13 @@ export default function Home() {
           
           {/* Links */}
           <div className="flex gap-4 md:gap-6">
+            <a 
+              href="/faq"
+              className="text-nav-link"
+            >
+              FAQ
+            </a>
+            <span className="text-nav-separator">·</span>
             <a 
               href="https://www.linkedin.com/in/dennispetri/" 
               target="_blank" 
@@ -93,7 +103,7 @@ export default function Home() {
 
               {/* Primary CTA */}
               <a 
-                href="https://app.reclaim.ai/m/meet-dennispetri/intro-with-dennis" 
+                href="https://cal.com/dennispetri/discovery-call" 
                 className="btn-primary"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -135,6 +145,14 @@ export default function Home() {
                     ))}
                   </div>
                 </div>
+              </div>
+
+              {/* Client Names as Text */}
+              <div className="text-caption mt-3 opacity-90">
+                ATNi, Dutch Quality Group, ESOMAR, Grote Kerk Breda, ING (via Milvum), Ministerie van Economische Zaken (via Backspace), Sportief Besteed Groep, TOF Helmets, UWV Cliëntenraad
+              </div>
+              <div className="text-caption mt-1.5 opacity-70">
+                Earlier: Hello Public, NeuralTeq
               </div>
             </div>
           </section>

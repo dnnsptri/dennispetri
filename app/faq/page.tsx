@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { siteUrl } from '../site'
+import Footer from '../components/Footer'
 
 export const metadata: Metadata = {
   title: 'FAQ – Dennis Petri',
@@ -10,10 +11,15 @@ export const metadata: Metadata = {
   },
 }
 
+interface FAQItem {
+  question: string
+  answer: string
+  position: number
+}
+
 interface FAQ {
   q: string
   a: string
-  position?: number
 }
 
 interface FAQData {
@@ -23,23 +29,39 @@ interface FAQData {
 
 async function fetchFAQs(): Promise<FAQData | null> {
   try {
-    // Fetch from JSON feed and filter by position
-    // FAQlue returns all items: EN at position 1-13, NL at position 101-113
+    // Fetch from FAQlue API
+    // API returns: {context: string, items: [{question, answer, position, ...}]}
+    // English items at positions 1-13, Dutch at positions 101-113
     const jsonRes = await fetch('https://faqlue.com/api/faq/dennispetri-nl', {
       next: { revalidate: 3600 },
     })
     
     if (!jsonRes.ok) {
+      console.error('FAQlue API returned non-ok status:', jsonRes.status)
       return null
     }
 
     const data = await jsonRes.json()
-    const allFaqs = data?.faqs?.en || []
+    const allItems = data?.items || []
+    
+    if (!Array.isArray(allItems) || allItems.length === 0) {
+      console.error('No items found in FAQlue response')
+      return null
+    }
     
     // Filter for English items only (position < 100)
-    const englishFaqs = allFaqs.filter((faq: FAQ) => 
-      !faq.position || faq.position < 100
-    )
+    // Map API response to our FAQ format
+    const englishFaqs: FAQ[] = allItems
+      .filter((item: FAQItem) => item.position < 100)
+      .map((item: FAQItem) => ({
+        q: item.question,
+        a: item.answer,
+      }))
+    
+    if (englishFaqs.length === 0) {
+      console.error('No English FAQs found after filtering')
+      return null
+    }
     
     // Build FAQPage JSON-LD from filtered English FAQs
     const jsonLd = {
@@ -62,6 +84,10 @@ async function fetchFAQs(): Promise<FAQData | null> {
     return null
   }
 }
+
+// Dynamic route to prevent caching failures at build time
+export const dynamic = 'force-dynamic'
+export const revalidate = 3600
 
 export default async function FAQ() {
   const faqData = await fetchFAQs()
@@ -131,27 +157,9 @@ export default async function FAQ() {
         </div>
 
         {/* Footer */}
-        <footer className="mt-16 pt-8 border-t border-white/10">
-          <div className="flex flex-col md:flex-row gap-4 md:gap-6 text-sm">
-            <a 
-              href="mailto:hi@dennispetri.nl" 
-              className="text-nav-link"
-            >
-              hi@dennispetri.nl
-            </a>
-            <span className="hidden md:inline opacity-30">•</span>
-            <a 
-              href="tel:+31647258820" 
-              className="text-nav-link"
-            >
-              +31 6 4725 8820
-            </a>
-            <span className="hidden md:inline opacity-30">•</span>
-            <span className="opacity-70">
-              Fluwelen Burgwal 58, Den Haag
-            </span>
-          </div>
-        </footer>
+        <div className="mt-16 pt-8 border-t border-white/10">
+          <Footer />
+        </div>
       </div>
     </div>
   )

@@ -43,6 +43,8 @@ export default function Home() {
           <div className="flex gap-4 md:gap-6">
             <a 
               href="/faq"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-nav-link"
             >
               FAQ

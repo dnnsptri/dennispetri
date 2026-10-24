@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
 import { siteUrl } from '../site'
 import Footer from '../components/Footer'
-import { linkify } from '../utils/linkify'
+import FAQClient from './FAQClient'
+import { SHOW_FAQLUE_ATTRIBUTION } from './config'
 
 export const metadata: Metadata = {
   title: 'FAQ – Dennis Petri',
@@ -105,62 +105,12 @@ export default async function FAQ() {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       )}
-      <div className="max-w-3xl mx-auto">
-        {/* Header */}
-        <header className="mb-12">
-          <Link 
-            href="/" 
-            className="inline-block text-nav-link mb-[140px] hover:underline"
-          >
-            ← Back to home
-          </Link>
-          <h1 className="text-4xl md:text-5xl font-medium mb-4">
-            Frequently Asked Questions
-          </h1>
-          <p className="text-body opacity-90">
-            Everything you need to know about working with Dennis Petri.
-          </p>
-        </header>
+      
+      <FAQClient faqs={faqs} showFaqlueAttribution={SHOW_FAQLUE_ATTRIBUTION} />
 
-        {/* FAQ List */}
-        {faqs.length > 0 ? (
-          <div className="space-y-8">
-            {faqs.map((faq, index) => (
-              <article key={index} className="border-b border-white/10 pb-8 last:border-0">
-                <h2 className="text-xl md:text-2xl font-medium mb-3">
-                  {faq.q}
-                </h2>
-                <p className="text-body opacity-90 whitespace-pre-wrap">
-                  {linkify(faq.a)}
-                </p>
-              </article>
-            ))}
-          </div>
-        ) : (
-          <div className="text-body opacity-70">
-            <p>FAQ content is temporarily unavailable. Please check back later.</p>
-          </div>
-        )}
-
-        {/* Contact CTA */}
-        <div className="mt-16 pt-8 border-t border-white/10">
-          <p className="text-body mb-4">
-            Have more questions?
-          </p>
-          <a 
-            href="https://cal.com/dennispetri/discovery-call"
-            className="btn-primary"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Book a discovery call
-          </a>
-        </div>
-
-        {/* Footer */}
-        <div className="mt-16 pt-8 border-t border-white/10">
-          <Footer />
-        </div>
+      {/* Footer */}
+      <div className="max-w-3xl mx-auto mt-16 pt-8 border-t border-white/10">
+        <Footer />
       </div>
     </div>
   )

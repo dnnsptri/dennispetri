@@ -91,44 +91,42 @@ export const viewport: Viewport = {
 
 // An AI answer needs a named person to recommend, not a page. This gives
 // crawlers the facts prose on a one-screen site can't carry reliably: who,
-// where, what he does, and which other records are the same man. The worksFor
-// link to Handoff reuses handoff.nl's own @id, so both sites describe one
-// person instead of two strangers with the same name.
-const schema = {
+// where, what he does, and which other records are the same man.
+const personSchema = {
   '@context': 'https://schema.org',
   '@type': 'Person',
   '@id': `${siteUrl}/#person`,
   name: 'Dennis Petri',
   url: siteUrl,
-  email: 'hi@dennispetri.nl',
+  email: 'mailto:hi@dennispetri.nl',
+  telephone: '+31647258820',
   image: `${siteUrl}/profile_dennis.jpg`,
   // Matches the LinkedIn headline word for word. Consistency across sources
   // is what makes a model confident enough to name someone.
   jobTitle: 'Creative director & product designer',
   description:
-    'Creative director and product designer in The Hague. He finds the product an organisation\'s people actually need, decides what good looks like, and makes sure it ships.',
+    'Speed is solved. Judgement isn\'t. I\'m Dennis Petri, creative director & product designer in Den Haag: I find the product your people actually need, decide what good looks like, then make sure it ships. 20+ years in digital, and most clients stay 5+ years.',
+  disambiguatingDescription: 'Product designer and creative director in The Hague. Not the political scientist Dennis P. Petri (petri.phd).',
   address: {
     '@type': 'PostalAddress',
-    addressLocality: 'The Hague',
+    streetAddress: 'Fluwelen Burgwal 58',
+    addressLocality: 'Den Haag',
     addressCountry: 'NL',
   },
   alumniOf: { '@type': 'CollegeOrUniversity', name: 'Willem de Kooning Academy' },
   knowsAbout: [
     'Product design',
-    'Product strategy',
     'Creative direction',
-    'AI product prototyping',
-    'Knowledge management products',
+    'Product strategy',
+    'UX design',
   ],
-  // schema.org has no 'founded' on Person; founder lives on Handoff's side.
-  worksFor: {
-    '@type': 'Organization',
-    '@id': 'https://handoff.nl/#org',
-    name: 'Handoff',
-    url: 'https://handoff.nl',
-  },
-  sameAs: ['https://www.linkedin.com/in/dennispetri/'],
+  knowsLanguage: ['nl', 'en'],
+  sameAs: [
+    'https://www.linkedin.com/in/dennispetri/',
+    'https://dennispetri.com/',
+  ],
 }
+
 
 export default function RootLayout({
   children,
@@ -140,7 +138,7 @@ export default function RootLayout({
       <body>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
         />
         {children}
         {/* Cookieless GA, production only. Keep the config in the component,

@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import { siteUrl } from '../site'
 import Footer from '../components/Footer'
-import FAQClient from './FAQClient'
-import { SHOW_FAQLUE_ATTRIBUTION } from './config'
+import Script from 'next/script'
 
 export const metadata: Metadata = {
   title: 'FAQ – Dennis Petri',
@@ -23,16 +23,9 @@ interface FAQ {
   a: string
 }
 
-interface FAQData {
-  faqs: FAQ[]
-  jsonLd: any
-}
-
-async function fetchFAQs(): Promise<FAQData | null> {
+async function generateJSONLD(): Promise<any | null> {
   try {
-    // Fetch from FAQlue API
-    // API returns: {context: string, items: [{question, answer, position, ...}]}
-    // English items at positions 1-13, Dutch at positions 101-113
+    // Fetch from FAQlue API for JSON-LD only
     const jsonRes = await fetch('https://faqlue.com/api/faq/dennispetri-nl', {
       next: { revalidate: 3600 },
     })
@@ -51,7 +44,6 @@ async function fetchFAQs(): Promise<FAQData | null> {
     }
     
     // Filter for English items only (position < 100)
-    // Map API response to our FAQ format
     const englishFaqs: FAQ[] = allItems
       .filter((item: FAQItem) => item.position < 100)
       .map((item: FAQItem) => ({
@@ -65,7 +57,7 @@ async function fetchFAQs(): Promise<FAQData | null> {
     }
     
     // Build FAQPage JSON-LD from filtered English FAQs
-    const jsonLd = {
+    return {
       '@context': 'https://schema.org',
       '@type': 'FAQPage',
       inLanguage: 'en',
@@ -78,25 +70,17 @@ async function fetchFAQs(): Promise<FAQData | null> {
         },
       })),
     }
-    
-    return { faqs: englishFaqs, jsonLd }
   } catch (error) {
     console.error('Failed to fetch FAQs from FAQlue:', error)
     return null
   }
 }
 
-// Dynamic route to prevent caching failures at build time
 export const dynamic = 'force-dynamic'
 export const revalidate = 3600
 
 export default async function FAQ() {
-  const faqData = await fetchFAQs()
-  
-  // Extract FAQs and JSON-LD (both filtered for English only)
-  const faqs = faqData?.faqs || []
-  const jsonLd = faqData?.jsonLd
-  const hasFetchError = faqData === null
+  const jsonLd = await generateJSONLD()
 
   return (
     <div className="min-h-screen bg-[#F36919] text-[#FAFAFA] py-8 px-6 md:px-8">
@@ -107,15 +91,37 @@ export default async function FAQ() {
         />
       )}
       
-      <FAQClient 
-        faqs={faqs} 
-        showFaqlueAttribution={SHOW_FAQLUE_ATTRIBUTION}
-        hasFetchError={hasFetchError}
-      />
+      <div className="max-w-3xl mx-auto">
+        {/* Header */}
+        <header className="mb-12">
+          <Link 
+            href="/" 
+            className="inline-block text-nav-link mb-[140px] hover:underline"
+          >
+            ← Back to home
+          </Link>
+          <h1 className="text-4xl md:text-5xl font-medium mb-4">
+            Frequently Asked Questions
+          </h1>
+          <p className="text-body opacity-90">
+            Everything you need to know about working with Dennis Petri.
+          </p>
+        </header>
 
-      {/* Footer */}
-      <div className="max-w-3xl mx-auto mt-16 pt-8 border-t border-white/10">
-        <Footer />
+        {/* FAQlue Widget */}
+        <div id="faqlue-widget-container">
+          <Script
+            src="https://faqlue.com/embed.js"
+            data-context="dennispetri-nl"
+            data-locale="en"
+            strategy="afterInteractive"
+          />
+        </div>
+
+        {/* Footer */}
+        <div className="mt-16 pt-8 border-t border-white/10">
+          <Footer />
+        </div>
       </div>
     </div>
   )

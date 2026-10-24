@@ -13,22 +13,18 @@ export const metadata: Metadata = {
 interface FAQ {
   q: string
   a: string
+  position?: number
 }
 
-async function fetchFAQs(): Promise<{ faqs: FAQ[]; html?: string } | null> {
-  try {
-    // Try the HTML endpoint first (preferred, not live yet)
-    try {
-      const htmlRes = await fetch('https://faqlue.com/api/faq/dennispetri-nl/html?locale=en', {
-        next: { revalidate: 3600 },
-      })
-      if (htmlRes.ok) {
-        const html = await htmlRes.text()
-        return { faqs: [], html }
-      }
-    } catch {}
+interface FAQData {
+  faqs: FAQ[]
+  jsonLd: any
+}
 
-    // Fall back to JSON feed
+async function fetchFAQs(): Promise<FAQData | null> {
+  try {
+    // Fetch from JSON feed and filter by position
+    // FAQlue returns all items: EN at position 1-13, NL at position 101-113
     const jsonRes = await fetch('https://faqlue.com/api/faq/dennispetri-nl', {
       next: { revalidate: 3600 },
     })
@@ -38,44 +34,19 @@ async function fetchFAQs(): Promise<{ faqs: FAQ[]; html?: string } | null> {
     }
 
     const data = await jsonRes.json()
-    const faqs = data?.faqs?.en || []
-    return { faqs }
-  } catch (error) {
-    console.error('Failed to fetch FAQs from FAQlue:', error)
-    return null
-  }
-}
-
-async function fetchFAQJsonLd(): Promise<any> {
-  try {
-    // Try the JSON-LD endpoint first (preferred, not live yet)
-    try {
-      const jsonLdRes = await fetch('https://faqlue.com/api/faq/dennispetri-nl/jsonld?locale=en', {
-        next: { revalidate: 3600 },
-      })
-      if (jsonLdRes.ok) {
-        return await jsonLdRes.json()
-      }
-    } catch {}
-
-    // Fall back to constructing from JSON feed
-    const jsonRes = await fetch('https://faqlue.com/api/faq/dennispetri-nl', {
-      next: { revalidate: 3600 },
-    })
+    const allFaqs = data?.faqs?.en || []
     
-    if (!jsonRes.ok) {
-      return null
-    }
-
-    const data = await jsonRes.json()
-    const faqs = data?.faqs?.en || []
+    // Filter for English items only (position < 100)
+    const englishFaqs = allFaqs.filter((faq: FAQ) => 
+      !faq.position || faq.position < 100
+    )
     
-    // Construct FAQPage JSON-LD from the FAQ data
-    return {
+    // Build FAQPage JSON-LD from filtered English FAQs
+    const jsonLd = {
       '@context': 'https://schema.org',
       '@type': 'FAQPage',
       inLanguage: 'en',
-      mainEntity: faqs.map((faq: FAQ) => ({
+      mainEntity: englishFaqs.map((faq: FAQ) => ({
         '@type': 'Question',
         name: faq.q,
         acceptedAnswer: {
@@ -84,100 +55,27 @@ async function fetchFAQJsonLd(): Promise<any> {
         },
       })),
     }
+    
+    return { faqs: englishFaqs, jsonLd }
   } catch (error) {
-    console.error('Failed to fetch FAQ JSON-LD from FAQlue:', error)
+    console.error('Failed to fetch FAQs from FAQlue:', error)
     return null
   }
 }
 
 export default async function FAQ() {
   const faqData = await fetchFAQs()
-  const faqJsonLd = await fetchFAQJsonLd()
-
-  // If FAQlue returned HTML, use it directly
-  if (faqData?.html) {
-    return (
-      <div className="min-h-screen bg-[#F36919] text-[#FAFAFA] py-8 px-6 md:px-8">
-        {faqJsonLd && (
-          <script
-            type="application/ld+json"
-            dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
-          />
-        )}
-        <div className="max-w-3xl mx-auto">
-          {/* Header */}
-          <header className="mb-12">
-            <Link 
-              href="/" 
-              className="inline-block text-nav-link mb-6 hover:underline"
-            >
-              ← Back to home
-            </Link>
-            <h1 className="text-4xl md:text-5xl font-medium mb-4">
-              Frequently Asked Questions
-            </h1>
-            <p className="text-body opacity-90">
-              Everything you need to know about working with Dennis Petri.
-            </p>
-          </header>
-
-          {/* FAQ HTML from FAQlue */}
-          <div 
-            className="space-y-8"
-            dangerouslySetInnerHTML={{ __html: faqData.html }}
-          />
-
-          {/* Contact CTA */}
-          <div className="mt-16 pt-8 border-t border-white/10">
-            <p className="text-body mb-4">
-              Have more questions?
-            </p>
-            <a 
-              href="https://cal.com/dennispetri/discovery-call"
-              className="btn-primary"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Book a discovery call
-            </a>
-          </div>
-
-          {/* Footer */}
-          <footer className="mt-16 pt-8 border-t border-white/10">
-            <div className="flex flex-col md:flex-row gap-4 md:gap-6 text-sm">
-              <a 
-                href="mailto:hi@dennispetri.nl" 
-                className="text-nav-link"
-              >
-                hi@dennispetri.nl
-              </a>
-              <span className="hidden md:inline opacity-30">•</span>
-              <a 
-                href="tel:+31647258820" 
-                className="text-nav-link"
-              >
-                +31 6 4725 8820
-              </a>
-              <span className="hidden md:inline opacity-30">•</span>
-              <span className="opacity-70">
-                Fluwelen Burgwal 58, Den Haag
-              </span>
-            </div>
-          </footer>
-        </div>
-      </div>
-    )
-  }
-
-  // Render from JSON feed, or show nothing if FAQlue is down
+  
+  // Extract FAQs and JSON-LD (both filtered for English only)
   const faqs = faqData?.faqs || []
+  const jsonLd = faqData?.jsonLd
 
   return (
     <div className="min-h-screen bg-[#F36919] text-[#FAFAFA] py-8 px-6 md:px-8">
-      {faqJsonLd && (
+      {jsonLd && (
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       )}
       <div className="max-w-3xl mx-auto">

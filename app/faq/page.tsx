@@ -110,7 +110,7 @@ export default async function FAQ() {
         <header className="mb-12">
           <Link 
             href="/" 
-            className="inline-block text-nav-link mb-6 hover:underline"
+            className="inline-block text-nav-link mb-[140px] hover:underline"
           >
             ← Back to home
           </Link>

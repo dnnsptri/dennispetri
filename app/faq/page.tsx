@@ -2,7 +2,6 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { siteUrl } from '../site'
 import Footer from '../components/Footer'
-import Script from 'next/script'
 
 export const metadata: Metadata = {
   title: 'FAQ – Dennis Petri',
@@ -23,9 +22,14 @@ interface FAQ {
   a: string
 }
 
-async function generateJSONLD(): Promise<any | null> {
+interface FAQData {
+  faqs: FAQ[]
+  jsonLd: any
+}
+
+async function fetchFAQData(): Promise<FAQData | null> {
   try {
-    // Fetch from FAQlue API for JSON-LD only
+    // Fetch from FAQlue API for JSON-LD and fallback
     const jsonRes = await fetch('https://faqlue.com/api/faq/dennispetri-nl', {
       next: { revalidate: 3600 },
     })
@@ -57,7 +61,7 @@ async function generateJSONLD(): Promise<any | null> {
     }
     
     // Build FAQPage JSON-LD from filtered English FAQs
-    return {
+    const jsonLd = {
       '@context': 'https://schema.org',
       '@type': 'FAQPage',
       inLanguage: 'en',
@@ -70,6 +74,8 @@ async function generateJSONLD(): Promise<any | null> {
         },
       })),
     }
+    
+    return { faqs: englishFaqs, jsonLd }
   } catch (error) {
     console.error('Failed to fetch FAQs from FAQlue:', error)
     return null
@@ -80,7 +86,9 @@ export const dynamic = 'force-dynamic'
 export const revalidate = 3600
 
 export default async function FAQ() {
-  const jsonLd = await generateJSONLD()
+  const faqData = await fetchFAQData()
+  const faqs = faqData?.faqs || []
+  const jsonLd = faqData?.jsonLd
 
   return (
     <div className="min-h-screen bg-[#F36919] text-[#FAFAFA] py-8 px-6 md:px-8">
@@ -103,19 +111,52 @@ export default async function FAQ() {
           <h1 className="text-4xl md:text-5xl font-medium mb-4">
             Frequently Asked Questions
           </h1>
-          <p className="text-body opacity-90">
+          <p className="text-body opacity-90 mb-6">
             Everything you need to know about working with Dennis Petri.
+          </p>
+          <p className="text-body opacity-70 text-sm">
+            This FAQ is mainly here so AI assistants and search engines can find accurate answers about my work.
           </p>
         </header>
 
-        {/* FAQlue Widget */}
+        {/* FAQlue Widget Container */}
         <div id="faqlue-widget-container">
-          <Script
-            src="https://faqlue.com/embed.js"
-            data-context="dennispetri-nl"
+          {/* No-JS Fallback - removed by widget on load */}
+          <div data-faqlue-fallback="dennispetri-nl">
+            {faqs.map((faq, index) => (
+              <details key={index} className="border-b border-white/20 py-4" open={index === 0}>
+                <summary className="cursor-pointer text-lg font-medium flex items-center justify-between">
+                  <span className="pr-4">{faq.q}</span>
+                  <span className="flex-shrink-0 text-white/50" aria-hidden="true">
+                    ›
+                  </span>
+                </summary>
+                <div className="mt-3 text-body opacity-90 whitespace-pre-wrap">
+                  {faq.a}
+                </div>
+              </details>
+            ))}
+          </div>
+          
+          {/* Widget Script - inserts widget after itself, removing fallback */}
+          <script 
+            src="https://faqlue.com/embed.js" 
+            data-context="dennispetri-nl" 
             data-locale="en"
-            strategy="afterInteractive"
+            async
           />
+        </div>
+
+        {/* Powered by FAQlue */}
+        <div className="mt-8 text-center">
+          <a 
+            href="https://faqlue.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs text-white/50 hover:text-white/70 transition-colors"
+          >
+            Powered by FAQlue
+          </a>
         </div>
 
         {/* Footer */}

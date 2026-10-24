@@ -417,3 +417,18 @@ body {
   animation: appear 0.8s ease-out 0.9s forwards;
   opacity: 0;
 }
+
+/* ============================================
+   FAQLUE WIDGET CUSTOM PROPERTIES
+   ============================================ */
+
+#faqlue-widget {
+  --fq-bg: rgba(255, 255, 255, 0.1);
+  --fq-border: rgba(255, 255, 255, 0.2);
+  --fq-text: #FAFAFA;
+  --fq-muted: #FFFFFF;
+  --fq-badge-bg: rgba(255, 255, 255, 0.15);
+  --fq-badge-text: #FAFAFA;
+  --fq-highlight: rgba(255, 255, 255, 0.25);
+  --fq-color: #FFFFFF;
+}

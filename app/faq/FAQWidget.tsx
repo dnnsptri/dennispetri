@@ -20,9 +20,6 @@ export default function FAQWidget({ fallbackHTML }: FAQWidgetProps) {
     script.src = 'https://faqlue.com/embed.js'
     script.dataset.context = 'dennispetri-nl'
     script.dataset.locale = 'en'
-    script.dataset.color = '#FAFAFA'
-    script.dataset.font = 'system-ui, -apple-system, sans-serif'
-    script.dataset.radius = '8'
     script.async = true
     
     scriptRef.current = script
@@ -57,6 +54,9 @@ export default function FAQWidget({ fallbackHTML }: FAQWidgetProps) {
       if (widgetRef.current && widgetRef.current.parentNode) {
         widgetRef.current.parentNode.removeChild(widgetRef.current)
       }
+      
+      // Remove any remaining widgets (in case unmount happens before poll finds it)
+      container.querySelectorAll('#faqlue-widget').forEach(node => node.remove())
     }
   }, [])
 
@@ -64,19 +64,6 @@ export default function FAQWidget({ fallbackHTML }: FAQWidgetProps) {
     <div 
       ref={containerRef}
       id="faqlue-widget-container"
-      style={{
-        // Set custom properties that inherit into shadow DOM
-        ['--fq-color' as any]: '#FFFFFF',
-        ['--fq-bg' as any]: 'rgba(255, 255, 255, 0.1)',
-        ['--fq-border' as any]: 'rgba(255, 255, 255, 0.2)',
-        ['--fq-text' as any]: '#FAFAFA',
-        ['--fq-muted' as any]: '#FFFFFF',
-        ['--fq-badge-bg' as any]: 'rgba(255, 255, 255, 0.15)',
-        ['--fq-badge-text' as any]: '#FAFAFA',
-        ['--fq-highlight' as any]: 'rgba(255, 255, 255, 0.2)',
-        ['--fq-success' as any]: '#FFFFFF',
-        ['--fq-error' as any]: '#FFFFFF',
-      }}
       dangerouslySetInnerHTML={{ __html: fallbackHTML }}
     />
   )

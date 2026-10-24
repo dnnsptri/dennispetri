@@ -105,7 +105,7 @@ function buildFallbackHTML(faqs: FAQ[]): string {
     </details>
   `).join('')
   
-  return `<div data-faqlue-fallback="dennispetri-nl">${items}</div><script src="https://faqlue.com/embed.js" data-context="dennispetri-nl" data-locale="en" async></script>`
+  return `<div data-faqlue-fallback="dennispetri-nl">${items}</div>`
 }
 
 export default async function FAQ() {

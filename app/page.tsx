@@ -149,7 +149,7 @@ export default function Home() {
         </div>
 
         {/* Footer */}
-        <div className="animate-footer flex-shrink-0 content-section content-footer">
+        <div className="animate-footer flex-shrink-0 content-footer">
           <Footer />
         </div>
       </div>

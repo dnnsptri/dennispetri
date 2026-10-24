@@ -12,7 +12,27 @@ interface LinkMatch {
 const EMAIL_PATTERN = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b/g
 const PHONE_PATTERN = /\+\d{1,3}[\s-]?\(?\d{1,4}\)?[\s-]?\d{1,4}[\s-]?\d{1,4}[\s-]?\d{0,9}/g
 const URL_WITH_PROTOCOL_PATTERN = /https?:\/\/[^\s<]+/gi
-const URL_WITHOUT_PROTOCOL_PATTERN = /\b(?:www\.|[a-z0-9-]+\.(?:com|nl|org|net|edu|gov|io|co|ai|dev))(?:\/[^\s<]*)?/gi
+
+// Allowlist of known domains to linkify (without protocol)
+// Only these will be converted to links when not prefixed with https://
+const ALLOWED_DOMAINS = [
+  'linkedin.com',
+  'cal.com',
+  'dennispetri.nl',
+  'dennispetri.com',
+]
+
+// Build regex pattern from allowlist that matches full domains at word boundaries
+// Pattern ensures the domain ends at a word boundary or is followed by / or whitespace
+function buildAllowlistPattern(): RegExp {
+  const escapedDomains = ALLOWED_DOMAINS.map(domain => 
+    domain.replace(/\./g, '\\.')
+  )
+  const pattern = `\\b(${escapedDomains.join('|')})(?:\\/[^\\s<]*)?\\b`
+  return new RegExp(pattern, 'gi')
+}
+
+const URL_WITHOUT_PROTOCOL_PATTERN = buildAllowlistPattern()
 
 /**
  * Extract all link matches from text

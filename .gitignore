@@ -5,6 +5,3 @@ node_modules/
 out
 tsconfig.tsbuildinfo
 *.textClipping
-.env
-.env.local
-.env.*.local

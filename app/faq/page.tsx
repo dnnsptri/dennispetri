@@ -96,6 +96,7 @@ export default async function FAQ() {
   // Extract FAQs and JSON-LD (both filtered for English only)
   const faqs = faqData?.faqs || []
   const jsonLd = faqData?.jsonLd
+  const hasFetchError = faqData === null
 
   return (
     <div className="min-h-screen bg-[#F36919] text-[#FAFAFA] py-8 px-6 md:px-8">
@@ -106,7 +107,11 @@ export default async function FAQ() {
         />
       )}
       
-      <FAQClient faqs={faqs} showFaqlueAttribution={SHOW_FAQLUE_ATTRIBUTION} />
+      <FAQClient 
+        faqs={faqs} 
+        showFaqlueAttribution={SHOW_FAQLUE_ATTRIBUTION}
+        hasFetchError={hasFetchError}
+      />
 
       {/* Footer */}
       <div className="max-w-3xl mx-auto mt-16 pt-8 border-t border-white/10">

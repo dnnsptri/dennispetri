@@ -99,13 +99,8 @@ function buildFallbackHTML(faqs: FAQ[]): string {
   
   const items = faqs.map((faq, index) => `
     <details class="group border-b border-white/20 py-4" ${index === 0 ? 'open' : ''}>
-      <summary class="cursor-pointer text-lg font-medium flex items-center justify-between list-none [&::-webkit-details-marker]:hidden">
-        <span class="pr-4">${escapeHtml(faq.q)}</span>
-        ${chevronSvg}
-      </summary>
-      <div class="mt-3 text-body opacity-90 whitespace-pre-wrap">
-        ${escapeHtml(faq.a)}
-      </div>
+      <summary class="cursor-pointer text-lg font-medium flex items-center justify-between list-none [&::-webkit-details-marker]:hidden"><span class="pr-4">${escapeHtml(faq.q)}</span>${chevronSvg}</summary>
+      <div class="mt-3 text-body opacity-90 whitespace-pre-wrap">${escapeHtml(faq.a)}</div>
     </details>
   `).join('')
   

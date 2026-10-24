@@ -431,4 +431,5 @@ body {
   --fq-badge-text: #FAFAFA;
   --fq-highlight: rgba(255, 255, 255, 0.25);
   --fq-color: #FFFFFF;
+  --fq-font: var(--font-sailec), sans-serif;
 }

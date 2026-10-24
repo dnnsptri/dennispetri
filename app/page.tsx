@@ -2,6 +2,7 @@
 
 import GradientBackground from './components/GradientBackground'
 import HeadlineArrow from './components/HeadlineArrow'
+import Footer from './components/Footer'
 
 // Descriptive alt text for accessibility and crawlers. Files must match /public/logos/.
 const logos = [
@@ -146,36 +147,9 @@ export default function Home() {
         </div>
 
         {/* Footer */}
-        <footer className="animate-footer flex-shrink-0 px-6 md:px-8 pb-4 md:pb-6 pt-5 md:pt-0 content-section content-footer">
-          {/* Mobile: Email • Phone on one line */}
-          <div className="flex flex-col gap-3 md:hidden">
-            <div className="flex items-center gap-1.5 whitespace-nowrap">
-              <a
-                href="mailto:hi@dennispetri.nl"
-                className="text-nav-link"
-              >
-                Email
-              </a>
-              <span className="text-footer" aria-hidden="true">•</span>
-              <a
-                href="tel:+31647258820"
-                className="text-nav-link"
-              >
-                Phone
-              </a>
-            </div>
-            <p className="text-footer">
-              © {currentYear} Dennis Petri<br />
-              Product design & creative direction
-            </p>
-          </div>
-          {/* Desktop: Horizontal layout */}
-          <div className="hidden md:flex justify-between items-center">
-            <p className="text-footer">
-              © {currentYear} Dennis Petri - Product design & creative direction
-            </p>
-          </div>
-        </footer>
+        <div className="animate-footer flex-shrink-0 content-section content-footer">
+          <Footer />
+        </div>
       </div>
     </div>
   )

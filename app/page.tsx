@@ -3,27 +3,22 @@
 import GradientBackground from './components/GradientBackground'
 import HeadlineArrow from './components/HeadlineArrow'
 
-// Names double as alt text. With alt="" the client list was invisible to
-// crawlers and screen readers, and it's the strongest authority signal on the
-// page. Files must match /public/logos/.
+// Descriptive alt text for accessibility and crawlers. Files must match /public/logos/.
 const logos = [
-  { file: 'atni.svg', name: 'ATNi' },
-  { file: 'dutchqualitygroup.svg', name: 'Dutch Quality Group' },
-  { file: 'esomar.svg', name: 'ESOMAR' },
-  { file: 'grotekerkbreda.svg', name: 'Grote Kerk Breda' },
-  { file: 'ing.svg', name: 'ING' },
-  { file: 'milvum.svg', name: 'Milvum' },
+  { file: 'atni.svg', name: 'ATNi logo' },
+  { file: 'dutchqualitygroup.svg', name: 'Dutch Quality Group logo' },
+  { file: 'esomar.svg', name: 'ESOMAR logo' },
+  { file: 'grotekerkbreda.svg', name: 'Grote Kerk Breda logo' },
+  { file: 'hellopublic.svg', name: 'Hello Public logo' },
+  { file: 'ing.svg', name: 'ING logo' },
+  { file: 'milvum.svg', name: 'Milvum logo' },
   // PNG, not SVG: the official lockup only ships as a raster. White version
   // made from it, 2x the 80px the SVGs are drawn at.
-  { file: 'ministerie-ez.png', name: 'Ministerie van Economische Zaken' },
-  { file: 'sportiefbesteedgroep.svg', name: 'Sportief Besteed Groep' },
-  { file: 'tofhelmets.svg', name: 'TOF Helmets' },
-  { file: 'uwv.svg', name: 'UWV' },
-]
-
-const pastLogos = [
-  { file: 'hellopublic.svg', name: 'Hello Public' },
-  { file: 'neuralteq.svg', name: 'NeuralTeq' },
+  { file: 'ministerie-ez.png', name: 'Ministerie van Economische Zaken logo' },
+  { file: 'neuralteq.svg', name: 'NeuralTeq logo' },
+  { file: 'sportiefbesteedgroep.svg', name: 'Sportief Besteed Groep logo' },
+  { file: 'tofhelmets.svg', name: 'TOF Helmets logo' },
+  { file: 'uwv.svg', name: 'UWV Cliëntenraad logo' },
 ]
 
 export default function Home() {
@@ -145,14 +140,6 @@ export default function Home() {
                     ))}
                   </div>
                 </div>
-              </div>
-
-              {/* Client Names as Text */}
-              <div className="text-caption mt-3 opacity-90">
-                ATNi, Dutch Quality Group, ESOMAR, Grote Kerk Breda, ING (via Milvum), Ministerie van Economische Zaken (via Backspace), Sportief Besteed Groep, TOF Helmets, UWV Cliëntenraad
-              </div>
-              <div className="text-caption mt-1.5 opacity-70">
-                Earlier: Hello Public, NeuralTeq
               </div>
             </div>
           </section>

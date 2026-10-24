@@ -1,4 +1,8 @@
-export default function Footer() {
+interface FooterProps {
+  hideFaqLink?: boolean
+}
+
+export default function Footer({ hideFaqLink = false }: FooterProps) {
   const currentYear = new Date().getFullYear()
 
   return (
@@ -24,28 +28,32 @@ export default function Footer() {
           © {currentYear} Dennis Petri<br />
           Product design & creative direction
         </p>
-        <a 
-          href="/faq"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-footer hover:underline text-sm"
-        >
-          FAQ
-        </a>
+        {!hideFaqLink && (
+          <a 
+            href="/faq"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-footer hover:underline text-sm"
+          >
+            FAQ
+          </a>
+        )}
       </div>
       {/* Desktop: Horizontal layout */}
       <div className="hidden md:flex justify-between items-center">
         <p className="text-footer">
           © {currentYear} Dennis Petri - Product design & creative direction
         </p>
-        <a 
-          href="/faq"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-footer hover:underline text-sm"
-        >
-          FAQ
-        </a>
+        {!hideFaqLink && (
+          <a 
+            href="/faq"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-footer hover:underline text-sm"
+          >
+            FAQ
+          </a>
+        )}
       </div>
     </footer>
   )

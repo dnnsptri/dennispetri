@@ -85,6 +85,33 @@ async function fetchFAQData(): Promise<FAQData | null> {
 export const dynamic = 'force-dynamic'
 export const revalidate = 3600
 
+function escapeHtml(text: string): string {
+  return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+}
+
+function buildFallbackHTML(faqs: FAQ[]): string {
+  const chevronSvg = '<svg class="w-5 h-5 flex-shrink-0 text-white/50 transition-transform group-open:rotate-180 motion-reduce:transition-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>'
+  
+  const items = faqs.map((faq, index) => `
+    <details class="group border-b border-white/20 py-4" ${index === 0 ? 'open' : ''}>
+      <summary class="cursor-pointer text-lg font-medium flex items-center justify-between list-none [&::-webkit-details-marker]:hidden">
+        <span class="pr-4">${escapeHtml(faq.q)}</span>
+        ${chevronSvg}
+      </summary>
+      <div class="mt-3 text-body opacity-90 whitespace-pre-wrap">
+        ${escapeHtml(faq.a)}
+      </div>
+    </details>
+  `).join('')
+  
+  return `<div data-faqlue-fallback="dennispetri-nl">${items}</div><script src="https://faqlue.com/embed.js" data-context="dennispetri-nl" data-locale="en" async></script>`
+}
+
 export default async function FAQ() {
   const faqData = await fetchFAQData()
   const faqs = faqData?.faqs || []
@@ -115,37 +142,15 @@ export default async function FAQ() {
             Everything you need to know about working with Dennis Petri.
           </p>
           <p className="text-body opacity-70 text-sm">
-            This FAQ is mainly here so AI assistants and search engines can find accurate answers about my work.
+            This FAQ is mainly here so AI assistants and search engines can find accurate answers about Dennis&rsquo;s work.
           </p>
         </header>
 
-        {/* FAQlue Widget Container */}
-        <div id="faqlue-widget-container">
-          {/* No-JS Fallback - removed by widget on load */}
-          <div data-faqlue-fallback="dennispetri-nl">
-            {faqs.map((faq, index) => (
-              <details key={index} className="border-b border-white/20 py-4" open={index === 0}>
-                <summary className="cursor-pointer text-lg font-medium flex items-center justify-between">
-                  <span className="pr-4">{faq.q}</span>
-                  <span className="flex-shrink-0 text-white/50" aria-hidden="true">
-                    ›
-                  </span>
-                </summary>
-                <div className="mt-3 text-body opacity-90 whitespace-pre-wrap">
-                  {faq.a}
-                </div>
-              </details>
-            ))}
-          </div>
-          
-          {/* Widget Script - inserts widget after itself, removing fallback */}
-          <script 
-            src="https://faqlue.com/embed.js" 
-            data-context="dennispetri-nl" 
-            data-locale="en"
-            async
-          />
-        </div>
+        {/* FAQlue Widget Container - dangerouslySetInnerHTML for hydration safety */}
+        <div 
+          id="faqlue-widget-container"
+          dangerouslySetInnerHTML={{ __html: buildFallbackHTML(faqs) }}
+        />
 
         {/* Powered by FAQlue */}
         <div className="mt-8 text-center">
@@ -161,7 +166,7 @@ export default async function FAQ() {
 
         {/* Footer */}
         <div className="mt-16 pt-8 border-t border-white/10">
-          <Footer />
+          <Footer hideFaqLink />
         </div>
       </div>
     </div>

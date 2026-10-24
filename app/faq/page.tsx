@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { siteUrl } from '../site'
 import Footer from '../components/Footer'
+import FAQWidget from './FAQWidget'
 
 export const metadata: Metadata = {
   title: 'FAQ – Dennis Petri',
@@ -141,11 +142,8 @@ export default async function FAQ() {
           </p>
         </header>
 
-        {/* FAQlue Widget Container - dangerouslySetInnerHTML for hydration safety */}
-        <div 
-          id="faqlue-widget-container"
-          dangerouslySetInnerHTML={{ __html: buildFallbackHTML(faqs) }}
-        />
+        {/* FAQlue Widget */}
+        <FAQWidget fallbackHTML={buildFallbackHTML(faqs)} />
 
         {/* Powered by FAQlue */}
         <div className="mt-8 text-center">
@@ -156,6 +154,21 @@ export default async function FAQ() {
             className="text-xs text-white/50 hover:text-white/70 transition-colors"
           >
             Powered by FAQlue
+          </a>
+        </div>
+
+        {/* Contact CTA */}
+        <div className="mt-16 pt-8 border-t border-white/10">
+          <p className="text-body mb-4">
+            Have more questions?
+          </p>
+          <a 
+            href="https://cal.com/dennispetri/discovery-call"
+            className="btn-primary"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Book a discovery call
           </a>
         </div>
 

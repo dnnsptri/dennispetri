@@ -172,6 +172,55 @@ test('handles overlapping matches correctly', () => {
   assert(link.href === 'mailto:test@example.com', 'Should linkify first email match')
 })
 
+test('does NOT linkify company names with dots (Elastik.Concepts)', () => {
+  const result = linkify('Founded Elastik.Concepts in 2010.')
+  assert(result.length === 1, 'Should return single element (no links)')
+  assert(result[0] === 'Founded Elastik.Concepts in 2010.', 'Should not linkify Elastik.Concepts')
+})
+
+test('does NOT linkify partial domain matches (random.co)', () => {
+  const result = linkify('The random.co word should not link.')
+  assert(result.length === 1, 'Should return single element (no links)')
+  assert(result[0] === 'The random.co word should not link.', 'Should not linkify random TLD matches')
+})
+
+test('does NOT linkify names that look like domains', () => {
+  const result = linkify('Visit Dr. Smith or Prof.io for advice.')
+  assert(result.length === 1, 'Should return single element (no links)')
+  assert(result[0] === 'Visit Dr. Smith or Prof.io for advice.', 'Should not linkify Prof.io')
+})
+
+test('ONLY linkifies allowlisted domains without protocol', () => {
+  // Should linkify linkedin.com (in allowlist)
+  const linkedInResult = linkify('Visit linkedin.com/in/dennispetri')
+  const link1 = extractLink(linkedInResult, 1)
+  assert(link1 !== null, 'Should linkify linkedin.com (allowlisted)')
+  assert(link1.href === 'https://linkedin.com/in/dennispetri', 'Should have correct href')
+  
+  // Should NOT linkify github.com (not in allowlist)
+  const githubResult = linkify('Visit github.com for code')
+  assert(githubResult.length === 1, 'Should not linkify github.com (not allowlisted)')
+  assert(githubResult[0] === 'Visit github.com for code', 'Should return unchanged')
+})
+
+test('ALWAYS linkifies URLs with https:// protocol regardless of allowlist', () => {
+  const result = linkify('Visit https://github.com for code.')
+  assert(result.length === 3, 'Should linkify URLs with protocol')
+  
+  const link = extractLink(result, 1)
+  assert(link !== null, 'Should have link element')
+  assert(link.href === 'https://github.com', 'Should linkify any URL with https://')
+})
+
+test('linkifies allowlisted cal.com correctly', () => {
+  const result = linkify('Book at cal.com/dennispetri/discovery-call')
+  assert(result.length === 2, 'Should return 2 elements (text + link)')
+  
+  const link = extractLink(result, 1)
+  assert(link !== null, 'Should have link element')
+  assert(link.href === 'https://cal.com/dennispetri/discovery-call', 'Should linkify cal.com')
+})
+
 // Summary
 console.log(`\n${passed} passed, ${failed} failed\n`)
 

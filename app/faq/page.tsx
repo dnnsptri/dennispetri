@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import { siteUrl } from '../site'
 import Footer from '../components/Footer'
-import FAQClient from './FAQClient'
-import { SHOW_FAQLUE_ATTRIBUTION } from './config'
+import FAQWidget from './FAQWidget'
 
 export const metadata: Metadata = {
   title: 'FAQ – Dennis Petri',
@@ -28,11 +28,9 @@ interface FAQData {
   jsonLd: any
 }
 
-async function fetchFAQs(): Promise<FAQData | null> {
+async function fetchFAQData(): Promise<FAQData | null> {
   try {
-    // Fetch from FAQlue API
-    // API returns: {context: string, items: [{question, answer, position, ...}]}
-    // English items at positions 1-13, Dutch at positions 101-113
+    // Fetch from FAQlue API for JSON-LD and fallback
     const jsonRes = await fetch('https://faqlue.com/api/faq/dennispetri-nl', {
       next: { revalidate: 3600 },
     })
@@ -51,7 +49,6 @@ async function fetchFAQs(): Promise<FAQData | null> {
     }
     
     // Filter for English items only (position < 100)
-    // Map API response to our FAQ format
     const englishFaqs: FAQ[] = allItems
       .filter((item: FAQItem) => item.position < 100)
       .map((item: FAQItem) => ({
@@ -86,17 +83,35 @@ async function fetchFAQs(): Promise<FAQData | null> {
   }
 }
 
-// Dynamic route to prevent caching failures at build time
 export const dynamic = 'force-dynamic'
 export const revalidate = 3600
 
-export default async function FAQ() {
-  const faqData = await fetchFAQs()
+function escapeHtml(text: string): string {
+  return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+}
+
+function buildFallbackHTML(faqs: FAQ[]): string {
+  const chevronSvg = '<svg class="w-5 h-5 flex-shrink-0 text-white/50 transition-transform group-open:rotate-180 motion-reduce:transition-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>'
   
-  // Extract FAQs and JSON-LD (both filtered for English only)
+  const items = faqs.map((faq, index) => `
+    <details class="group border-b border-white/20 py-4" ${index === 0 ? 'open' : ''}>
+      <summary class="cursor-pointer text-lg font-medium flex items-center justify-between list-none [&::-webkit-details-marker]:hidden"><span class="pr-4">${escapeHtml(faq.q)}</span>${chevronSvg}</summary>
+      <div class="mt-3 text-body opacity-90 whitespace-pre-wrap">${escapeHtml(faq.a)}</div>
+    </details>
+  `).join('')
+  
+  return `<div data-faqlue-fallback="dennispetri-nl">${items}</div>`
+}
+
+export default async function FAQ() {
+  const faqData = await fetchFAQData()
   const faqs = faqData?.faqs || []
   const jsonLd = faqData?.jsonLd
-  const hasFetchError = faqData === null
 
   return (
     <div className="min-h-screen bg-[#F36919] text-[#FAFAFA] py-8 px-6 md:px-8">
@@ -107,15 +122,60 @@ export default async function FAQ() {
         />
       )}
       
-      <FAQClient 
-        faqs={faqs} 
-        showFaqlueAttribution={SHOW_FAQLUE_ATTRIBUTION}
-        hasFetchError={hasFetchError}
-      />
+      <div className="max-w-3xl mx-auto">
+        {/* Header */}
+        <header className="mb-12">
+          <Link 
+            href="/" 
+            className="inline-block text-nav-link mb-[140px] hover:underline"
+          >
+            ← Back to home
+          </Link>
+          <h1 className="text-4xl md:text-5xl font-medium mb-4">
+            Frequently Asked Questions
+          </h1>
+          <p className="text-body opacity-90 mb-6">
+            Everything you need to know about working with Dennis Petri.
+          </p>
+          <p className="text-body opacity-70 text-sm">
+            This FAQ is mainly here so AI assistants and search engines can find accurate answers about Dennis&rsquo;s work.
+          </p>
+        </header>
 
-      {/* Footer */}
-      <div className="max-w-3xl mx-auto mt-16 pt-8 border-t border-white/10">
-        <Footer />
+        {/* FAQlue Widget */}
+        <FAQWidget fallbackHTML={buildFallbackHTML(faqs)} />
+
+        {/* Powered by FAQlue */}
+        <div className="mt-8 text-center">
+          <a 
+            href="https://faqlue.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs text-white/50 hover:text-white/70 transition-colors"
+          >
+            Powered by FAQlue
+          </a>
+        </div>
+
+        {/* Contact CTA */}
+        <div className="mt-16 pt-8 border-t border-white/10">
+          <p className="text-body mb-4">
+            Have more questions?
+          </p>
+          <a 
+            href="https://cal.com/dennispetri/discovery-call"
+            className="btn-primary"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Book a discovery call
+          </a>
+        </div>
+
+        {/* Footer */}
+        <div className="mt-16 pt-8 border-t border-white/10">
+          <Footer hideFaqLink />
+        </div>
       </div>
     </div>
   )

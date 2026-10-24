@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { siteUrl } from '../site'
 import Footer from '../components/Footer'
+import { linkify } from '../utils/linkify'
 
 export const metadata: Metadata = {
   title: 'FAQ – Dennis Petri',
@@ -130,7 +131,7 @@ export default async function FAQ() {
                   {faq.q}
                 </h2>
                 <p className="text-body opacity-90 whitespace-pre-wrap">
-                  {faq.a}
+                  {linkify(faq.a)}
                 </p>
               </article>
             ))}

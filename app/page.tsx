@@ -23,8 +23,6 @@ const logos = [
 ]
 
 export default function Home() {
-  const currentYear = new Date().getFullYear()
-
   return (
     <div className="page">
       <GradientBackground />
@@ -41,16 +39,7 @@ export default function Home() {
           
           {/* Links */}
           <div className="flex gap-4 md:gap-6">
-            <a 
-              href="/faq"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-nav-link"
-            >
-              FAQ
-            </a>
-            <span className="text-nav-separator">·</span>
-            <a 
+            <a
               href="https://www.linkedin.com/in/dennispetri/" 
               target="_blank" 
               rel="noopener noreferrer" 

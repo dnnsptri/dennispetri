@@ -31,8 +31,6 @@ export default function Footer({ hideFaqLink = false }: FooterProps) {
         {!hideFaqLink && (
           <a 
             href="/faq"
-            target="_blank"
-            rel="noopener noreferrer"
             className="text-footer hover:underline text-sm"
           >
             FAQ
@@ -47,8 +45,6 @@ export default function Footer({ hideFaqLink = false }: FooterProps) {
         {!hideFaqLink && (
           <a 
             href="/faq"
-            target="_blank"
-            rel="noopener noreferrer"
             className="text-footer hover:underline text-sm"
           >
             FAQ
